@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9121087594799102338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3818844859371436410}
+  - component: {fileID: 4972392269168998823}
+  - component: {fileID: -7811755696668707094}
+  m_Layer: 0
+  m_Name: AI Snek
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3818844859371436410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9121087594799102338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4972392269168998823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9121087594799102338}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cd109cd6aac7d4faa9294815e6a093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headPrefab: {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139,
+    type: 3}
+  bodyPrefab: {fileID: 5227100870849320467, guid: ea6e05d144657d345b3cfe8031adb859,
+    type: 3}
+  bodyParts: []
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  initialBodySize: 5
+  minimumDistanceBetweenParts: 1.1
+  minDistanceIncrement: 0.15
+  speed: 1
+  rotationSpeed: 50
+  balanceSnakeSpeed: 25
+  balanceSnakeState: 0
+  changeDirectionInterval: 5
+  spawnRadius: 5
+  checkFoodRadius: 1
+  MASS: 0
+--- !u!114 &-7811755696668707094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9121087594799102338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708e231e4a4dfd54881a487823143973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headPrefab: {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139,
+    type: 3}
+  bodyPrefab: {fileID: 5838762220439294603, guid: 6eedb64150a26cb44933e97b4d099007,
+    type: 3}
+  bodyParts: []
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  spawnRadius: 50
+  rotateSpeed: 1
+  massToLookAt: {fileID: 0}
+  initialBodySize: 5
+  minimumDistanceBetweenParts: 1.1
+  minDistanceIncrement: 0
+  speed: 1
+  rotationSpeed: 50
+  balanceSnakeSpeed: 1
+  balanceSnakeState: 0
+  changeDirectionInterval: 5
+  checkFoodRadius: 25
+  randomDirection: 10
+  MASS: 0
