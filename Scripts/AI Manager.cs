@@ -26,9 +26,9 @@ public class AIManager : MonoBehaviour
     {
         foreach (GameObject snek in listOfAIs) {
             if (!snek.activeInHierarchy) {
-                Vector3 spawnPoint = new Vector3(Random.Range(-50, 50), Random.Range(5, 50), Random.Range(-50, 50));
+                //Vector3 spawnPoint = new Vector3(Random.Range(-50, 50), Random.Range(5, 50), Random.Range(-50, 50));
 
-                snek.GetComponent<NewAISnek>().SetHeadPosition(spawnPoint);
+                //snek.GetComponent<NewAISnek>().SetHeadPosition(spawnPoint);
 
                 snek.SetActive(true);
 

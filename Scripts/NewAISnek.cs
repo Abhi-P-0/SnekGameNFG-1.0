@@ -39,9 +39,31 @@ public class NewAISnek : MonoBehaviour
     private Coroutine LookCoroutine;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Vector3 spawnPoint = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(10f, 50f), Random.Range(-spawnRadius, spawnRadius));
+    //void Start()
+    //{
+    //    Vector3 spawnPoint = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(10f, 50f), Random.Range(-spawnRadius, spawnRadius));
+
+    //    Transform head = (Instantiate(headPrefab, spawnPoint, Quaternion.identity)).transform;
+
+    //    head.SetParent(transform);
+
+    //    bodyParts.Add(head);
+
+    //    head.gameObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+    //    for (int i = 0; i < initialBodySize; i++) {
+    //        AddBody();
+
+    //        for (int j = 0; j < Random.Range(1, 10); j++) {
+    //            IncreaseMass(10);
+    //        }
+
+    //    }
+    //    speed = Random.Range(1f, 3f);
+    //}
+
+    private void OnEnable() {
+        Vector3 spawnPoint = new Vector3(Random.Range(-50, 50), Random.Range(5, 50), Random.Range(-50, 50));
 
         Transform head = (Instantiate(headPrefab, spawnPoint, Quaternion.identity)).transform;
 
@@ -56,10 +78,22 @@ public class NewAISnek : MonoBehaviour
 
             for (int j = 0; j < Random.Range(1, 10); j++) {
                 IncreaseMass(10);
+
             }
 
         }
+
         speed = Random.Range(1f, 3f);
+
+    }
+
+    private void OnDisable() {
+        //Debug.Log("bodyies before clear: " + bodyParts.Count);
+
+        bodyParts.Clear();
+
+        //Debug.Log("bodyies after clear: " + bodyParts.Count);
+
     }
 
     private void Update() {
@@ -67,12 +101,20 @@ public class NewAISnek : MonoBehaviour
 
         if (massAround != null) {
             if (massAround.transform.position.y >= 5f && massAround.transform.position.y < 100f) {
-                Debug.Log("Found Mass, Looking at");
+                //Debug.Log("Found Mass, Looking at");
 
                 bodyParts[0].LookAt(massAround.transform);
             }
                                    
+        } else {
+            int horizontalTurnChance = Random.Range(-1, 1), verticalTurnChance = Random.Range(-1, 1);
+
+            if (horizontalTurnChance != 0) bodyParts[0].Rotate(Vector3.up, horizontalTurnChance * rotationSpeed * Time.deltaTime);
+
+            if (verticalTurnChance != 0) bodyParts[0].Rotate(Vector3.right, verticalTurnChance * rotationSpeed * Time.deltaTime);
         }
+
+        LevelSnake();
 
         Move();
 
@@ -263,12 +305,12 @@ public class NewAISnek : MonoBehaviour
 
         } 
         
-        if (bodyParts[0].position.x <= 100 || bodyParts[0].position.x >= 100) {
+        if (bodyParts[0].position.x <= -100 || bodyParts[0].position.x >= 100) {
             return true;
 
         }
         
-        if (bodyParts[0].position.z <= 100 || bodyParts[0].position.z >= 100) {
+        if (bodyParts[0].position.z <= -100 || bodyParts[0].position.z >= 100) {
             return true;
 
         }
