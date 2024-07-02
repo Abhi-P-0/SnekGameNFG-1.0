@@ -38,7 +38,6 @@ public class NewAISnek : MonoBehaviour
 
     private Coroutine LookCoroutine;
 
-    // Start is called before the first frame update
     //void Start()
     //{
     //    Vector3 spawnPoint = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(10f, 50f), Random.Range(-spawnRadius, spawnRadius));
@@ -88,11 +87,7 @@ public class NewAISnek : MonoBehaviour
     }
 
     private void OnDisable() {
-        //Debug.Log("bodyies before clear: " + bodyParts.Count);
-
         bodyParts.Clear();
-
-        //Debug.Log("bodyies after clear: " + bodyParts.Count);
 
     }
 
@@ -122,43 +117,14 @@ public class NewAISnek : MonoBehaviour
             DecreaseMass(0.02f);
 
         }
-
-        //directionChangeTimer -= Time.deltaTime;
-
-        //if (directionChangeTimer <= 0f) {
-        //    var massAround = GetMassAround();
-            
-        //    if (massAround != null) {
-        //        moveDirection = massAround.transform.position;
-
-        //    } 
-        //    //else {
-        //    //    moveDirection = GetRandomDirection();
-
-        //    //}
-
-        //    directionChangeTimer = changeDirectionInterval;
-
-        //}
-
+                
     }
 
     private void Move() {
         float currSpeed = speed;
 
         Transform snakeHead = bodyParts[0];
-
-        //var massAround = GetMassAround();
-
-        //if (massAround != null) {
-        //    snakeHead.LookAt(massAround.transform);
-
-        //} else {
-        //    snakeHead.LookAt(GetRandomDirection());
-
-        //}
-        //snakeHead.LookAt(moveDirection);
-        
+               
         // MOVES SNAKE FORWARD
         snakeHead.Translate(Vector3.forward * currSpeed * Time.deltaTime);
 
@@ -193,7 +159,6 @@ public class NewAISnek : MonoBehaviour
         if (MASS % scaleThreshold == 0) {
             bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f);
 
-            //minimumDistanceBetweenParts += 0.17f;
             minimumDistanceBetweenParts += bodyParts[1].localScale.z / 4;
 
         }
@@ -211,7 +176,6 @@ public class NewAISnek : MonoBehaviour
         if (MASS % scaleThreshold == 0) {
             bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
 
-            //minimumDistanceBetweenParts += 0.17f;
             minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
 
         }
