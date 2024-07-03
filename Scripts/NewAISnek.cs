@@ -92,10 +92,15 @@ public class NewAISnek : MonoBehaviour
         bodyParts.Clear();
         
         while (transform.childCount > 0) {
-            DestroyImmediate(transform.GetChild(0).gameObject);
+            //DestroyImmediate(transform.GetChild(0).gameObject);
+            Destroy(transform.GetChild(0).gameObject); // safer, waits till the end of frame so keep index safe for whatever reason (just incase)
         }
         
     }
+
+    float randomLookTimer;
+    Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
+    
 
     private void Update() {
         var massAround = GetMassAround();
@@ -106,13 +111,26 @@ public class NewAISnek : MonoBehaviour
 
                 bodyParts[0].LookAt(massAround.transform);
             }
+
+            randomLookTimer = 0;
                                    
         } else {
-            int horizontalTurnChance = Random.Range(-1, 1), verticalTurnChance = Random.Range(-1, 1);
+            randomLookTimer += Time.deltaTime;
 
-            if (horizontalTurnChance != 0) bodyParts[0].Rotate(Vector3.up, horizontalTurnChance * rotationSpeed * Time.deltaTime);
+            if (randomLookTimer > 2f) {
+                int selectedDir = Random.Range(0, directions.Length - 1);
+                
+                bodyParts[0].LookAt(directions[selectedDir]);
 
-            if (verticalTurnChance != 0) bodyParts[0].Rotate(Vector3.right, verticalTurnChance * rotationSpeed * Time.deltaTime);
+                randomLookTimer = 0;
+
+            }
+
+            //    int horizontalTurnChance = Random.Range(-1, 1), verticalTurnChance = Random.Range(-1, 1);
+
+            //    if (horizontalTurnChance != 0) snakeHead.Rotate(Vector3.up, horizontalTurnChance * rotationSpeed * Time.deltaTime);
+
+            //    if (verticalTurnChance != 0) snakeHead.Rotate(Vector3.right, verticalTurnChance * rotationSpeed * Time.deltaTime);
         }
 
         LevelSnake();
