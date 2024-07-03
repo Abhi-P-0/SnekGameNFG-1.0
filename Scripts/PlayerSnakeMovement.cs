@@ -22,7 +22,7 @@ public class PlayerSnakeMovement : MonoBehaviour
     [SerializeField] private bool balanceSnakeState = false;
 
     [Header("MASS")]
-    [SerializeField] float MASS = 0f;
+    [SerializeField] private int MASS = 0;
 
 
     private float dis;
@@ -97,7 +97,7 @@ public class PlayerSnakeMovement : MonoBehaviour
             currSpeed *= 2;
 
             //MASS -= 0.02f;
-            DecreaseMass(0.02f);
+            DecreaseMass(1);
         }
 
         Transform snakeHead = bodyParts[0];
@@ -169,7 +169,7 @@ public class PlayerSnakeMovement : MonoBehaviour
 
     
 
-    public void IncreaseMass(float increaseAmount) {
+    public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
 
         if (MASS % newBodyThreshold == 0) {
@@ -187,7 +187,7 @@ public class PlayerSnakeMovement : MonoBehaviour
 
     }
 
-    public void DecreaseMass(float decreaseAmount) {
+    public void DecreaseMass(int decreaseAmount) {
         MASS -= decreaseAmount;
 
         if (MASS % newBodyThreshold == 0) {

@@ -26,11 +26,13 @@ public class NewAISnek : MonoBehaviour
     [SerializeField] private float randomDirection = 5f;
 
     [Header("MASS")]
-    [SerializeField] private float MASS = 0f;
+    [SerializeField] private int MASS = 0;
 
     private float dis;
     private float scaleThreshold = 100f, newBodyThreshold = 40f;
     private float directionChangeTimer;
+
+    private float timePassed = 0f;
 
     private Vector3 moveDirection;
     private Transform currBodyPart;
@@ -73,7 +75,7 @@ public class NewAISnek : MonoBehaviour
         head.gameObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
 
         for (int i = 0; i < initialBodySize; i++) {
-            AddBody();
+            //AddBody();
 
             for (int j = 0; j < Random.Range(1, 10); j++) {
                 IncreaseMass(10);
@@ -88,7 +90,11 @@ public class NewAISnek : MonoBehaviour
 
     private void OnDisable() {
         bodyParts.Clear();
-
+        
+        while (transform.childCount > 0) {
+            DestroyImmediate(transform.GetChild(0).gameObject);
+        }
+        
     }
 
     private void Update() {
@@ -114,8 +120,16 @@ public class NewAISnek : MonoBehaviour
         Move();
 
         if (IsOutOfBounds()) {
-            DecreaseMass(0.02f);
+            timePassed += Time.deltaTime;
 
+            if (timePassed > 1f) {
+                DecreaseMass(1);
+
+                timePassed = 0f;
+            }            
+
+        } else if (!IsOutOfBounds()) {
+            timePassed = 0f;
         }
                 
     }
@@ -148,7 +162,7 @@ public class NewAISnek : MonoBehaviour
 
     }
 
-    public void IncreaseMass(float increaseAmount) {
+    public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
 
         if (MASS % newBodyThreshold == 0) {
@@ -165,11 +179,19 @@ public class NewAISnek : MonoBehaviour
 
     }
 
-    public void DecreaseMass(float decreaseAmount) {
+    public void DecreaseMass(int decreaseAmount) {
         MASS -= decreaseAmount;
-
+        
         if (MASS % newBodyThreshold == 0) {
-            bodyParts[bodyParts.Count - 1].gameObject.SetActive(false);
+            //bodyParts[bodyParts.Count - 1].gameObject.SetActive(false);
+            // start end of list, first active bodypart should be set to deactive
+            for (int i = bodyParts.Count - 1; i >= 0; i--) {
+                if (bodyParts[i].gameObject.activeSelf) {
+                    bodyParts[i].gameObject.SetActive(false);
+
+                    break;
+                }
+            }
 
         }
 
