@@ -40,6 +40,12 @@ public class NewAISnek : MonoBehaviour
 
     private Coroutine LookCoroutine;
 
+    [SerializeField] private float wanderRadius = 10f;
+    [SerializeField] private float wanderInterval = 3f;
+
+    private Vector3 targetPosition;
+    private float wanderTimer;
+
     //void Start()
     //{
     //    Vector3 spawnPoint = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(10f, 50f), Random.Range(-spawnRadius, spawnRadius));
@@ -86,6 +92,8 @@ public class NewAISnek : MonoBehaviour
 
         speed = Random.Range(1f, 3f);
 
+        SetNewWanderTarget();
+
     }
 
     private void OnDisable() {
@@ -100,57 +108,73 @@ public class NewAISnek : MonoBehaviour
 
     float randomLookTimer;
     Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
-    
 
     private void Update() {
         var massAround = GetMassAround();
 
         if (massAround != null) {
             if (massAround.transform.position.y >= 5f && massAround.transform.position.y < 100f) {
-                //Debug.Log("Found Mass, Looking at");
-
                 bodyParts[0].LookAt(massAround.transform);
+                wanderTimer = 0; // Reset wander timer when food is found
             }
-
-            randomLookTimer = 0;
-                                   
         } else {
-            randomLookTimer += Time.deltaTime;
-
-            if (randomLookTimer > 2f) {
-                int selectedDir = Random.Range(0, directions.Length - 1);
-                
-                bodyParts[0].LookAt(directions[selectedDir]);
-
-                randomLookTimer = 0;
-
-            }
-
-            //    int horizontalTurnChance = Random.Range(-1, 1), verticalTurnChance = Random.Range(-1, 1);
-
-            //    if (horizontalTurnChance != 0) snakeHead.Rotate(Vector3.up, horizontalTurnChance * rotationSpeed * Time.deltaTime);
-
-            //    if (verticalTurnChance != 0) snakeHead.Rotate(Vector3.right, verticalTurnChance * rotationSpeed * Time.deltaTime);
+            Wander();
         }
 
         LevelSnake();
-
         Move();
-
-        if (IsOutOfBounds()) {
-            timePassed += Time.deltaTime;
-
-            if (timePassed > 1f) {
-                DecreaseMass(1);
-
-                timePassed = 0f;
-            }            
-
-        } else if (!IsOutOfBounds()) {
-            timePassed = 0f;
-        }
-                
+        HandleOutOfBounds();
     }
+
+    //private void Update() {
+    //    var massAround = GetMassAround();
+
+    //    if (massAround != null) {
+    //        if (massAround.transform.position.y >= 5f && massAround.transform.position.y < 100f) {
+    //            //Debug.Log("Found Mass, Looking at");
+
+    //            bodyParts[0].LookAt(massAround.transform);
+    //        }
+
+    //        randomLookTimer = 0;
+
+    //    } else {
+    //        randomLookTimer += Time.deltaTime;
+
+    //        if (randomLookTimer > 2f) {
+    //            int selectedDir = Random.Range(0, directions.Length - 1);
+
+    //            bodyParts[0].LookAt(directions[selectedDir]);
+
+    //            randomLookTimer = 0;
+
+    //        }
+
+    //        //    int horizontalTurnChance = Random.Range(-1, 1), verticalTurnChance = Random.Range(-1, 1);
+
+    //        //    if (horizontalTurnChance != 0) snakeHead.Rotate(Vector3.up, horizontalTurnChance * rotationSpeed * Time.deltaTime);
+
+    //        //    if (verticalTurnChance != 0) snakeHead.Rotate(Vector3.right, verticalTurnChance * rotationSpeed * Time.deltaTime);
+    //    }
+
+    //    LevelSnake();
+
+    //    Move();
+
+    //    if (IsOutOfBounds()) {
+    //        timePassed += Time.deltaTime;
+
+    //        if (timePassed > 1f) {
+    //            DecreaseMass(1);
+
+    //            timePassed = 0f;
+    //        }            
+
+    //    } else if (!IsOutOfBounds()) {
+    //        timePassed = 0f;
+    //    }
+
+    //}
 
     private void Move() {
         float currSpeed = speed;
@@ -298,7 +322,44 @@ public class NewAISnek : MonoBehaviour
 
         return temp;
     }
-    
+
+    private void HandleOutOfBounds() {
+        if (IsOutOfBounds()) {
+            timePassed += Time.deltaTime;
+            if (timePassed > 1f) {
+                DecreaseMass(1);
+                timePassed = 0f;
+
+                // Move towards center when out of bounds
+                Vector3 centerDirection = -bodyParts[0].position.normalized;
+                bodyParts[0].rotation = Quaternion.Slerp(bodyParts[0].rotation, Quaternion.LookRotation(centerDirection), rotationSpeed * Time.deltaTime);
+            }
+        } else {
+            timePassed = 0f;
+        }
+    }
+
+    private void Wander() {
+        wanderTimer += Time.deltaTime;
+
+        if (wanderTimer >= wanderInterval) {
+            SetNewWanderTarget();
+            wanderTimer = 0;
+        }
+
+        Vector3 direction = (targetPosition - bodyParts[0].position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        bodyParts[0].rotation = Quaternion.Slerp(bodyParts[0].rotation, lookRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    private void SetNewWanderTarget() {
+        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
+        randomDirection += bodyParts[0].position;
+        randomDirection.y = Mathf.Clamp(randomDirection.y, 5f, 95f); // Keep within vertical bounds
+        targetPosition = randomDirection;
+    }
+
+
     private Vector3 GetRandomDirection() {
         return new Vector3(Random.Range(-randomDirection, randomDirection), Random.Range(-randomDirection, randomDirection), Random.Range(-randomDirection, randomDirection)).normalized;
     }
