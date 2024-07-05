@@ -76,6 +76,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708e231e4a4dfd54881a487823143973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headPrefabs:
+  - {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139, type: 3}
+  bodyPrefabs:
+  - {fileID: 5227100870849320467, guid: ea6e05d144657d345b3cfe8031adb859, type: 3}
+  - {fileID: 5838762220439294603, guid: 6eedb64150a26cb44933e97b4d099007, type: 3}
+  - {fileID: 4009810578340584961, guid: 1dd964f014f687b4dacdecf7e0215e1c, type: 3}
   headPrefab: {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139,
     type: 3}
   bodyPrefab: {fileID: 5838762220439294603, guid: 6eedb64150a26cb44933e97b4d099007,
@@ -98,3 +104,5 @@ MonoBehaviour:
   checkFoodRadius: 25
   randomDirection: 10
   MASS: 0
+  wanderRadius: 10
+  wanderInterval: 3

@@ -16,6 +16,8 @@ public class AIManager : MonoBehaviour
         for (int i = 0; i < numAI; i++) {
             GameObject temp = Instantiate(snakeObject);
 
+            temp.transform.GetChild(0).GetComponent<LongThinLine>().enabled = false;
+
             listOfAIs.Add(temp);
 
         }

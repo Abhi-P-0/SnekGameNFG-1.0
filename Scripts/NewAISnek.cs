@@ -5,6 +5,8 @@ using UnityEngine;
 public class NewAISnek : MonoBehaviour
 {
     [Header("Prefabs")]
+    [SerializeField] private List<GameObject> headPrefabs = new List<GameObject>();
+    [SerializeField] private List<GameObject> bodyPrefabs = new List<GameObject>();
     [SerializeField] private GameObject headPrefab;
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private List<Transform> bodyParts = new List<Transform>();
@@ -38,6 +40,8 @@ public class NewAISnek : MonoBehaviour
     private Transform currBodyPart;
     private Transform prevBodyPart;
 
+    private Color headColour, bodyColour;
+
     private Coroutine LookCoroutine;
 
     [SerializeField] private float wanderRadius = 10f;
@@ -70,7 +74,11 @@ public class NewAISnek : MonoBehaviour
     //}
 
     private void OnEnable() {
-        Vector3 spawnPoint = new Vector3(Random.Range(-50, 50), Random.Range(5, 50), Random.Range(-50, 50));
+        Vector3 spawnPoint = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(5, spawnRadius), Random.Range(-spawnRadius, spawnRadius));
+
+        headPrefab = headPrefabs[Random.Range(0, headPrefabs.Count)]; // randomly selects a head prefab from the available options
+
+        bodyPrefab = bodyPrefabs[Random.Range(0, bodyPrefabs.Count)];
 
         Transform head = (Instantiate(headPrefab, spawnPoint, Quaternion.identity)).transform;
 
@@ -78,11 +86,12 @@ public class NewAISnek : MonoBehaviour
 
         bodyParts.Add(head);
 
-        head.gameObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        headColour = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        bodyColour = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+        head.gameObject.GetComponent<MeshRenderer>().material.color = headColour;
 
         for (int i = 0; i < initialBodySize; i++) {
-            //AddBody();
-
             for (int j = 0; j < Random.Range(1, 10); j++) {
                 IncreaseMass(10);
 
@@ -98,12 +107,18 @@ public class NewAISnek : MonoBehaviour
 
     private void OnDisable() {
         bodyParts.Clear();
-        
-        while (transform.childCount > 0) {
-            //DestroyImmediate(transform.GetChild(0).gameObject);
-            Destroy(transform.GetChild(0).gameObject); // safer, waits till the end of frame so keep index safe for whatever reason (just incase)
+
+        //Debug.Log(transform.childCount);
+
+        for (int i = 0; i < transform.childCount; i++) {
+            Destroy(transform.GetChild(i).gameObject);
         }
-        
+
+        //while (transform.childCount > 0) { // this shit broke somehow, used to work perfectly, then just broke, no idea
+        //    //DestroyImmediate(transform.GetChild(0).gameObject);
+        //    Destroy(transform.GetChild(0).gameObject); // safer, waits till the end of frame so keep index safe for whatever reason (just incase)
+        //}
+
     }
 
     float randomLookTimer;
@@ -168,7 +183,7 @@ public class NewAISnek : MonoBehaviour
     //            DecreaseMass(1);
 
     //            timePassed = 0f;
-    //        }            
+    //        }
 
     //    } else if (!IsOutOfBounds()) {
     //        timePassed = 0f;
@@ -207,12 +222,12 @@ public class NewAISnek : MonoBehaviour
     public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
 
-        if (MASS % newBodyThreshold == 0) {
+        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
             InitBodyPart();
 
         }
 
-        if (MASS % scaleThreshold == 0) {
+        if (((MASS / 10) * 10) % scaleThreshold == 0) {
             bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f);
 
             minimumDistanceBetweenParts += bodyParts[1].localScale.z / 4;
@@ -224,8 +239,7 @@ public class NewAISnek : MonoBehaviour
     public void DecreaseMass(int decreaseAmount) {
         MASS -= decreaseAmount;
         
-        if (MASS % newBodyThreshold == 0) {
-            //bodyParts[bodyParts.Count - 1].gameObject.SetActive(false);
+        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
             // start end of list, first active bodypart should be set to deactive
             for (int i = bodyParts.Count - 1; i >= 0; i--) {
                 if (bodyParts[i].gameObject.activeSelf) {
@@ -237,7 +251,7 @@ public class NewAISnek : MonoBehaviour
 
         }
 
-        if (MASS % scaleThreshold == 0) {
+        if (((MASS / 10) * 10) % scaleThreshold == 0) {
             bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
 
             minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
@@ -276,7 +290,7 @@ public class NewAISnek : MonoBehaviour
 
         // Apply the corrected z rotation back
         currentEulerAngles.z = zRotation;
-        bodyParts[0].transform.transform.rotation = Quaternion.Euler(currentEulerAngles);
+        bodyParts[0].transform.transform.rotation = Quaternion.Euler(currentEulerAngles); // -------------------------- FIX THIS LINE LATER ---------------------------------
     }
 
     private void InitBodyPart() {
@@ -301,7 +315,8 @@ public class NewAISnek : MonoBehaviour
     private void AddBody() {
         Transform newPart = (Instantiate(bodyPrefab, bodyParts[bodyParts.Count - 1].position, bodyParts[bodyParts.Count - 1].rotation)).transform;
 
-        newPart.gameObject.GetComponentInChildren<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        //newPart.gameObject.GetComponentInChildren<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        newPart.gameObject.GetComponentInChildren<MeshRenderer>().material.color = bodyColour;
 
         newPart.SetParent(transform);
 
