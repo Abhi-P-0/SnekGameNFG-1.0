@@ -4,35 +4,48 @@ public class LongThinLine : MonoBehaviour {
     public float maxDistance = 1000f;
     public float lineWidth = 0.01f;
     public LayerMask hitLayers;
-    public float lineElevation = 0.1f; // Slight elevation above surfaces
+    public float lineElevation = 0.1f;
 
     private LineRenderer lineRenderer;
 
     void Start() {
         lineRenderer = GetComponent<LineRenderer>();
-
         if (lineRenderer == null)
             lineRenderer = gameObject.AddComponent<LineRenderer>();
 
+        SetupLineRenderer();
+
+        // Initially disable the line renderer
+        lineRenderer.enabled = false;
+    }
+
+    void SetupLineRenderer() {
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
         lineRenderer.positionCount = 2;
 
-        // Create a new material with a shader that ignores depth testing
         Material lineMaterial = new Material(Shader.Find("Unlit/Color"));
-        lineMaterial.color = Color.red; // Set your desired color
-        lineMaterial.renderQueue = 3000; // Set to render after most transparent objects
+        lineMaterial.color = Color.white;
+        lineMaterial.renderQueue = 3000;
         lineRenderer.material = lineMaterial;
 
-        // Disable shadow casting and receiving
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         lineRenderer.receiveShadows = false;
-
-        // Set to world space
         lineRenderer.useWorldSpace = true;
     }
 
     void Update() {
+        // Check if right mouse button is being held down
+        if (Input.GetMouseButton(1))  // 0 is left, 1 is right, 2 is middle
+        {
+            lineRenderer.enabled = true;
+            UpdateLinePosition();
+        } else {
+            lineRenderer.enabled = false;
+        }
+    }
+
+    void UpdateLinePosition() {
         Vector3 startPoint = transform.position + (Vector3.up * lineElevation);
         Vector3 direction = transform.forward;
 

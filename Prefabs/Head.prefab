@@ -468,10 +468,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 1000
-  lineWidth: 0.1
+  lineWidth: 0.05
   hitLayers:
     serializedVersion: 2
-    m_Bits: 656
+    m_Bits: 512
+  lineElevation: 0.1
 --- !u!1 &6051380432355781229
 GameObject:
   m_ObjectHideFlags: 0
