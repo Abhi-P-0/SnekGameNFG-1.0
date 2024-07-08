@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3818844859371436410}
   - component: {fileID: 4972392269168998823}
   - component: {fileID: -7811755696668707094}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AI Snek
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   bodyParts: []
   layerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2560
   spawnRadius: 50
   rotateSpeed: 1
   massToLookAt: {fileID: 0}
@@ -103,6 +103,9 @@ MonoBehaviour:
   changeDirectionInterval: 5
   checkFoodRadius: 25
   randomDirection: 10
+  aiLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   MASS: 0
   wanderRadius: 10
   wanderInterval: 3

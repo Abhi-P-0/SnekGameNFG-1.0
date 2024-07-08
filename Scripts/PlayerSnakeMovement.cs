@@ -19,7 +19,7 @@ public class PlayerSnakeMovement : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float balanceSnakeSpeed = 1f;
-    [SerializeField] private bool balanceSnakeState = false;
+    [SerializeField] private bool balanceSnakeState = true;
 
     [Header("MASS")]
     [SerializeField] private int MASS = 0;
@@ -204,6 +204,8 @@ public class PlayerSnakeMovement : MonoBehaviour
         }
 
     }
+
+    public int GetMass() { return MASS; }
 
     private void InitBodyPart() {
         bool activatedPart = true;

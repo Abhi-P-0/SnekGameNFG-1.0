@@ -7,11 +7,20 @@ public class LongThinLine : MonoBehaviour {
     public float lineElevation = 0.1f;
 
     private LineRenderer lineRenderer;
+    private Color aiColor = Color.red;
+    private Color defaultColor = Color.white;
+    private MaterialPropertyBlock propertyBlock;
+    private int layerMask;
 
     void Start() {
+        layerMask = hitLayers.value & ~(1 << LayerMask.NameToLayer("Ignore Raycast"));
+
         lineRenderer = GetComponent<LineRenderer>();
+
         if (lineRenderer == null)
             lineRenderer = gameObject.AddComponent<LineRenderer>();
+
+        propertyBlock = new MaterialPropertyBlock();
 
         SetupLineRenderer();
 
@@ -28,7 +37,7 @@ public class LongThinLine : MonoBehaviour {
         lineMaterial.color = Color.white;
         lineMaterial.renderQueue = 3000;
         lineRenderer.material = lineMaterial;
-
+                
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         lineRenderer.receiveShadows = false;
         lineRenderer.useWorldSpace = true;
@@ -50,12 +59,35 @@ public class LongThinLine : MonoBehaviour {
         Vector3 direction = transform.forward;
 
         RaycastHit hit;
-        if (Physics.Raycast(startPoint, direction, out hit, maxDistance, hitLayers)) {
+
+        // Define the layer mask to ignore the Ignore Raycast layer
+        //int layerMask = hitLayers.value & ~(1 << LayerMask.NameToLayer("Ignore Raycast"));
+
+        lineRenderer.GetPropertyBlock(propertyBlock);
+
+        if (Physics.Raycast(startPoint, direction, out hit, maxDistance)) {
+            //Debug.Log(hit.collider.gameObject.name);
+
+            if (hit.collider.gameObject.CompareTag("AI")) {
+                propertyBlock.SetColor("_Color", aiColor);
+
+            } else {
+                propertyBlock.SetColor("_Color", defaultColor);
+
+            }
+
             lineRenderer.SetPosition(0, startPoint);
             lineRenderer.SetPosition(1, hit.point + (Vector3.up * lineElevation));
+
         } else {
+            propertyBlock.SetColor("_Color", defaultColor);
+
             lineRenderer.SetPosition(0, startPoint);
             lineRenderer.SetPosition(1, startPoint + direction * maxDistance);
+
         }
+        
+        lineRenderer.SetPropertyBlock(propertyBlock);
+
     }
 }

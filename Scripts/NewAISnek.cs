@@ -26,6 +26,7 @@ public class NewAISnek : MonoBehaviour
     [SerializeField] private float changeDirectionInterval = 3f; // Time between direction changes
     [SerializeField] private float checkFoodRadius = 1;
     [SerializeField] private float randomDirection = 5f;
+    [SerializeField] private LayerMask aiLayer;
 
     [Header("MASS")]
     [SerializeField] private int MASS = 0;
@@ -82,6 +83,10 @@ public class NewAISnek : MonoBehaviour
 
         Transform head = (Instantiate(headPrefab, spawnPoint, Quaternion.identity)).transform;
 
+        head.gameObject.tag = "AI";
+
+        //head.gameObject.layer = aiLayer;
+
         head.SetParent(transform);
 
         bodyParts.Add(head);
@@ -120,10 +125,7 @@ public class NewAISnek : MonoBehaviour
         //}
 
     }
-
-    float randomLookTimer;
-    Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right };
-
+        
     private void Update() {
         var massAround = GetMassAround();
 
@@ -317,6 +319,10 @@ public class NewAISnek : MonoBehaviour
 
         //newPart.gameObject.GetComponentInChildren<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         newPart.gameObject.GetComponentInChildren<MeshRenderer>().material.color = bodyColour;
+
+        newPart.gameObject.tag = "AI";
+
+        //newPart.gameObject.layer = aiLayer;
 
         newPart.SetParent(transform);
 

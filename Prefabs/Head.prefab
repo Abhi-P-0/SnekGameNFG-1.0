@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 1836639314457761272}
   - component: {fileID: 898676959930689128}
   - component: {fileID: 5706125621863154690}
+  - component: {fileID: 9116006818106477012}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -471,8 +472,24 @@ MonoBehaviour:
   lineWidth: 0.05
   hitLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2560
   lineElevation: 0.1
+--- !u!114 &9116006818106477012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988483766589207025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c91a245b3233644887860fdbacbed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPrefab: {fileID: 4411502277591148928, guid: ed4faf06871c0294685747e7a8c2e975,
+    type: 3}
+  currAttack: {fileID: 0}
+  massCost: 5
 --- !u!1 &6051380432355781229
 GameObject:
   m_ObjectHideFlags: 0
