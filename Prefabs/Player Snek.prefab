@@ -57,9 +57,6 @@ MonoBehaviour:
   speed: 3.5
   rotationSpeed: 75
   balanceSnakeSpeed: 75
-  balanceSnakeState: 0
-  projectilePrefab: {fileID: 4411502277591148928, guid: ed4faf06871c0294685747e7a8c2e975,
-    type: 3}
-  projectileSpeed: 150
-  attackCooldown: 0.5
+  balanceSnakeState: 1
   MASS: 0
+  massText: {fileID: 0}

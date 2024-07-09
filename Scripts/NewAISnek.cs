@@ -22,9 +22,9 @@ public class NewAISnek : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float balanceSnakeSpeed = 1f;
-    [SerializeField] private bool balanceSnakeState = false;
-    [SerializeField] private float changeDirectionInterval = 3f; // Time between direction changes
-    [SerializeField] private float checkFoodRadius = 1;
+    //[SerializeField] private bool balanceSnakeState = false;
+    //[SerializeField] private float changeDirectionInterval = 3f; // Time between direction changes
+    //[SerializeField] private float checkFoodRadius = 1;
     [SerializeField] private float randomDirection = 5f;
     [SerializeField] private LayerMask aiLayer;
 
@@ -266,6 +266,8 @@ public class NewAISnek : MonoBehaviour
         }
                 
     }
+
+    public int GetMass() { return MASS; }
 
     private void LevelSnake() {
         // Gradually level the z rotation back to 0

@@ -6,6 +6,7 @@ public class LaserBehaviour : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int dmg;
+    [SerializeField] private float maxLifeTime;
 
     private float timePassed;
 
@@ -16,21 +17,29 @@ public class LaserBehaviour : MonoBehaviour
 
         timePassed += Time.deltaTime;
 
-        if (timePassed > 10f) {
+        if (timePassed > maxLifeTime) {
             Destroy(gameObject);
 
         }
     }
      
-    private void OnTriggerEnter(Collider other) {
-        Debug.Log(other.gameObject.tag);
-
+    private void OnTriggerEnter(Collider other) {        
         if (other.gameObject.CompareTag("AI")) {
-            NewAISnek newAISnek = GetComponentInParent<NewAISnek>();
+            //var script = other.GetComponentInParent<NewAISnek>();
 
-            newAISnek.DecreaseMass(dmg);
+            //if (script != null) {                
+            //    NewAISnek newAISnek = other.GetComponentInParent<NewAISnek>();
+                              
+            //    newAISnek.DecreaseMass(dmg);
 
-            Destroy(this.gameObject);
+            //    Destroy(this.gameObject);
+            //}
+            if (other.transform.parent.TryGetComponent<NewAISnek>(out NewAISnek AIScript)) {
+                AIScript.DecreaseMass(dmg);
+
+                Destroy(gameObject);
+
+            }            
 
         }
 

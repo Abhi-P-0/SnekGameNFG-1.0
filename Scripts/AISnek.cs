@@ -14,16 +14,16 @@ public class AISnek : MonoBehaviour
     public LayerMask layerMask;
 
     [Header("AI Parameters")]
-    [SerializeField] private int initialBodySize = 5;
+    //[SerializeField] private int initialBodySize = 5;
     [SerializeField] private float minimumDistanceBetweenParts = 1.1f;
     [SerializeField] private float minDistanceIncrement;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float balanceSnakeSpeed = 1f;
-    [SerializeField] private bool balanceSnakeState = false;
+    //[SerializeField] private bool balanceSnakeState = false;
     [SerializeField] private float changeDirectionInterval = 3f; // Time between direction changes
     [SerializeField] private int spawnRadius = 1;
-    [SerializeField] private float checkFoodRadius = 1;
+    //[SerializeField] private float checkFoodRadius = 1;
 
     [Header("MASS")]
     [SerializeField] private float MASS = 0f;

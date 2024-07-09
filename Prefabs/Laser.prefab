@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 250
   dmg: 5
+  maxLifeTime: 5
 --- !u!1 &7288622613994394061
 GameObject:
   m_ObjectHideFlags: 0

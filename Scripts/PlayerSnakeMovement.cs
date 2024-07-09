@@ -26,7 +26,7 @@ public class PlayerSnakeMovement : MonoBehaviour
         
     [Header("MASS")]
     [SerializeField] private int MASS = 0;
-    public TMP_Text massText;
+    public TMP_Text massText, heightText;
     
     private float dis;
     private float scaleThreshold = 100f, newBodyThreshold = 40f;
@@ -40,6 +40,7 @@ public class PlayerSnakeMovement : MonoBehaviour
         var temp = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<TMP_Text>();
 
         massText = temp;
+        heightText = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<TMP_Text>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -68,6 +69,7 @@ public class PlayerSnakeMovement : MonoBehaviour
     void Update()
     {
         massText.SetText("MASS: " + MASS.ToString());
+        heightText.SetText("Y: " + Mathf.Round(bodyParts[0].position.y * 10f) * 0.1f);
 
         Move();
 
@@ -103,6 +105,8 @@ public class PlayerSnakeMovement : MonoBehaviour
                 
     }
 
+    private float massDecreaseTimer = 0f;
+
     private void Move() {
         float currSpeed = speed;
 
@@ -110,7 +114,19 @@ public class PlayerSnakeMovement : MonoBehaviour
             currSpeed *= 2;
 
             //MASS -= 0.02f;
-            DecreaseMass(1);
+            //DecreaseMass(1);
+            massDecreaseTimer += Time.deltaTime;
+
+            if (massDecreaseTimer >= 1f) {
+                DecreaseMass(1);
+
+                massDecreaseTimer = 0f;
+
+            }
+
+        } else {
+            massDecreaseTimer = 0;
+
         }
 
         Transform snakeHead = bodyParts[0];
@@ -219,6 +235,8 @@ public class PlayerSnakeMovement : MonoBehaviour
     }
 
     public int GetMass() { return MASS; }
+
+    public float GetHeight() { return bodyParts[0].position.y; }
 
     private void InitBodyPart() {
         bool activatedPart = true;
