@@ -1,7 +1,10 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSnakeMovement : MonoBehaviour
 {
@@ -12,7 +15,7 @@ public class PlayerSnakeMovement : MonoBehaviour
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private List<Transform> bodyParts = new List<Transform>();
 
-    [Header("Player Parameters")]
+    [Header("Player Character Parameters")]
     [SerializeField] private int initialBodySize = 5;
     [SerializeField] private float minimumDistanceBetweenParts = 0.5f;
     [SerializeField] private float minDistanceIncrement;
@@ -20,11 +23,11 @@ public class PlayerSnakeMovement : MonoBehaviour
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float balanceSnakeSpeed = 1f;
     [SerializeField] private bool balanceSnakeState = true;
-
+        
     [Header("MASS")]
     [SerializeField] private int MASS = 0;
-
-
+    public TMP_Text massText;
+    
     private float dis;
     private float scaleThreshold = 100f, newBodyThreshold = 40f;
 
@@ -34,10 +37,14 @@ public class PlayerSnakeMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var temp = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<TMP_Text>();
+
+        massText = temp;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Transform head = (Instantiate(headPrefab, new Vector3(Random.Range(-10, 10), 1, Random.Range(-10, 10)), Quaternion.identity)).transform;
+        Transform head = (Instantiate(headPrefab, new Vector3(UnityEngine.Random.Range(-10, 10), 1, UnityEngine.Random.Range(-10, 10)), Quaternion.identity)).transform;
 
         head.SetParent(transform);
 
@@ -60,10 +67,16 @@ public class PlayerSnakeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        massText.SetText("MASS: " + MASS.ToString());
+
         Move();
 
         if (Input.GetKeyUp(KeyCode.T)) {
             AddBody();
+        }
+
+        if (Input.GetKeyUp(KeyCode.F)) {
+            IncreaseMass(5);
         }
 
         if (Input.GetKeyUp(KeyCode.C)) {
@@ -87,7 +100,7 @@ public class PlayerSnakeMovement : MonoBehaviour
         }
 
         if (Input.GetKeyUp(KeyCode.B)) balanceSnakeState = !balanceSnakeState;
-
+                
     }
 
     private void Move() {
