@@ -61,7 +61,7 @@ public class HandleStationaryMass : MonoBehaviour
     private Vector3 GetRandomPosition() {
         return new Vector3(
             Random.Range(-spawnRadius, spawnRadius),
-            Random.Range(5f, 100f),
+            Random.Range(5f, 250f),
             Random.Range(-spawnRadius, spawnRadius)
         );
 
