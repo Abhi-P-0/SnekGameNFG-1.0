@@ -48,7 +48,7 @@ MonoBehaviour:
     type: 3}
   headPrefab: {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139,
     type: 3}
-  bodyPrefab: {fileID: 5227100870849320467, guid: ea6e05d144657d345b3cfe8031adb859,
+  bodyPrefab: {fileID: 2981978852834277892, guid: cbb32b7902d11454c964f97132d4f6e8,
     type: 3}
   bodyParts: []
   initialBodySize: 5
@@ -60,3 +60,4 @@ MonoBehaviour:
   balanceSnakeState: 1
   MASS: 0
   massText: {fileID: 0}
+  heightText: {fileID: 0}

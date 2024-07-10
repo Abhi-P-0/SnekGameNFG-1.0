@@ -5,6 +5,7 @@ using TMPro;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class PlayerSnakeMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerSnakeMovement : MonoBehaviour
     [SerializeField] private GameObject headPrefab;
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private List<Transform> bodyParts = new List<Transform>();
+    [SerializeField] private MonoScript lineRendererScript;
 
     [Header("Player Character Parameters")]
     [SerializeField] private int initialBodySize = 5;
@@ -27,6 +29,10 @@ public class PlayerSnakeMovement : MonoBehaviour
     [Header("MASS")]
     [SerializeField] private int MASS = 0;
     public TMP_Text massText, heightText;
+
+    [Header("Player Attacks and Abilities Prefabs")]
+    [SerializeField] private MonoScript attackPrefabs;
+    [SerializeField] private MonoScript abilitiesPrefabs;
     
     private float dis;
     private float scaleThreshold = 100f, newBodyThreshold = 40f;
@@ -48,6 +54,8 @@ public class PlayerSnakeMovement : MonoBehaviour
         Transform head = (Instantiate(headPrefab, new Vector3(UnityEngine.Random.Range(-10, 10), 1, UnityEngine.Random.Range(-10, 10)), Quaternion.identity)).transform;
 
         head.SetParent(transform);
+
+        // Add linerenderer script, player attack and ability script --------------- Not implemented ------------------------------
 
         bodyParts.Add(head);
 
@@ -201,12 +209,12 @@ public class PlayerSnakeMovement : MonoBehaviour
     public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
 
-        if (MASS % newBodyThreshold == 0) {
+        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
             InitBodyPart();
 
         }
 
-        if (MASS % scaleThreshold == 0) {
+        if (((MASS / 10) * 10) % scaleThreshold == 0) {
             bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f);
 
             //minimumDistanceBetweenParts += 0.17f;
@@ -219,12 +227,19 @@ public class PlayerSnakeMovement : MonoBehaviour
     public void DecreaseMass(int decreaseAmount) {
         MASS -= decreaseAmount;
 
-        if (MASS % newBodyThreshold == 0) {
-            bodyParts[bodyParts.Count - 1].transform.gameObject.SetActive(false);
+        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
+            //bodyParts[bodyParts.Count - 1].transform.gameObject.SetActive(false);
+            for (int i = bodyParts.Count - 1; i >= 0; i--) {
+                if (bodyParts[i].gameObject.activeSelf) {
+                    bodyParts[i].gameObject.SetActive(false);
+
+                    break;
+                }
+            }
 
         }
 
-        if (MASS % scaleThreshold == 0) {
+        if (((MASS / 10) * 10) % scaleThreshold == 0) {
             bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
 
             //minimumDistanceBetweenParts += 0.17f;

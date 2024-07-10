@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackScript : MonoBehaviour {
+public class LaserAttackScript : MonoBehaviour {
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private GameObject currAttack;
@@ -21,7 +21,7 @@ public class PlayerAttackScript : MonoBehaviour {
             if (playerSnakeMovement.GetMass() >= massCost) {
                 Vector3 spawnPosition = transform.position + transform.forward;
 
-                currAttack = Instantiate(attackPrefab, spawnPoint.position, spawnPoint.rotation);
+                currAttack = Instantiate(attackPrefab, spawnPosition, spawnPoint.rotation);
 
                 currAttack.transform.forward = transform.forward;
 

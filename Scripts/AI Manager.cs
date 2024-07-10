@@ -17,7 +17,7 @@ public class AIManager : MonoBehaviour
             GameObject temp = Instantiate(snakeObject);
 
             temp.transform.GetChild(0).GetComponent<LongThinLine>().enabled = false;
-            temp.transform.GetChild(0).GetComponent<PlayerAttackScript>().enabled = false;
+            temp.transform.GetChild(0).GetComponent<LaserAttackScript>().enabled = false;
 
             listOfAIs.Add(temp);
 

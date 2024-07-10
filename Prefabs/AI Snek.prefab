@@ -53,16 +53,13 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 512
-  initialBodySize: 5
   minimumDistanceBetweenParts: 1.1
   minDistanceIncrement: 0.15
   speed: 1
   rotationSpeed: 50
   balanceSnakeSpeed: 25
-  balanceSnakeState: 0
   changeDirectionInterval: 5
   spawnRadius: 5
-  checkFoodRadius: 1
   MASS: 0
 --- !u!114 &-7811755696668707094
 MonoBehaviour:
@@ -78,10 +75,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headPrefabs:
   - {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139, type: 3}
+  - {fileID: 2505619207748142117, guid: e480c3858a1d41048be7ae9f2bc5ff24, type: 3}
   bodyPrefabs:
   - {fileID: 5227100870849320467, guid: ea6e05d144657d345b3cfe8031adb859, type: 3}
   - {fileID: 5838762220439294603, guid: 6eedb64150a26cb44933e97b4d099007, type: 3}
   - {fileID: 4009810578340584961, guid: 1dd964f014f687b4dacdecf7e0215e1c, type: 3}
+  - {fileID: 2981978852834277892, guid: cbb32b7902d11454c964f97132d4f6e8, type: 3}
   headPrefab: {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139,
     type: 3}
   bodyPrefab: {fileID: 5838762220439294603, guid: 6eedb64150a26cb44933e97b4d099007,
@@ -99,9 +98,6 @@ MonoBehaviour:
   speed: 1
   rotationSpeed: 50
   balanceSnakeSpeed: 1
-  balanceSnakeState: 0
-  changeDirectionInterval: 5
-  checkFoodRadius: 25
   randomDirection: 10
   aiLayer:
     serializedVersion: 2
