@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LaserBehaviour : MonoBehaviour
@@ -9,6 +10,11 @@ public class LaserBehaviour : MonoBehaviour
     [SerializeField] private float maxLifeTime;
 
     private float timePassed;
+    //private TMP_Text timerTxt;
+
+    //private void Start() {
+    //    timerTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<TMP_Text>();
+    //}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -22,6 +28,8 @@ public class LaserBehaviour : MonoBehaviour
 
         }
     }
+
+    public float GetMaxLifeTime() { return maxLifeTime; }
      
     private void OnTriggerEnter(Collider other) {        
         if (other.gameObject.CompareTag("AI")) {

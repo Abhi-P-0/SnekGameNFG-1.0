@@ -18,6 +18,7 @@ public class AIManager : MonoBehaviour
 
             temp.transform.GetChild(0).GetComponent<LongThinLine>().enabled = false;
             temp.transform.GetChild(0).GetComponent<LaserAttackScript>().enabled = false;
+            temp.transform.GetChild(0).GetComponent<MassDrainAbility>().enabled = false;
 
             listOfAIs.Add(temp);
 

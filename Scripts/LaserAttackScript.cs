@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LaserAttackScript : MonoBehaviour {
@@ -9,10 +10,17 @@ public class LaserAttackScript : MonoBehaviour {
     [SerializeField] private int massCost;
 
     private PlayerSnakeMovement playerSnakeMovement;
+    private TMP_Text timerTxt;
+    private float maxLifeTimer;
+    private float currLifeTimer;
 
     // Start is called before the first frame update
     void Start() {
         playerSnakeMovement = GetComponentInParent<PlayerSnakeMovement>();
+
+        timerTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<TMP_Text>();
+
+        maxLifeTimer = attackPrefab.GetComponent<LaserBehaviour>().GetMaxLifeTime();
     }
 
     // Update is called once per frame
@@ -28,6 +36,17 @@ public class LaserAttackScript : MonoBehaviour {
                 playerSnakeMovement.DecreaseMass(massCost);
             }
 
+        }
+        
+        if (currAttack != null) {
+            currLifeTimer -= Time.deltaTime;
+
+            timerTxt.SetText((Mathf.Round(currLifeTimer * 10f) * 0.1f).ToString());
+
+        } else {
+            currLifeTimer = maxLifeTimer;
+
+            timerTxt.SetText("Ready");
         }
     }
 }

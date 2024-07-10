@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 898676959930689128}
   - component: {fileID: 5706125621863154690}
   - component: {fileID: 9116006818106477012}
+  - component: {fileID: -7513822450803696505}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -492,6 +493,19 @@ MonoBehaviour:
     type: 3}
   currAttack: {fileID: 0}
   massCost: 5
+--- !u!114 &-7513822450803696505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988483766589207025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f5a45f6990df3e4db1bf30c44c21b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCoolDownTimer: 5
 --- !u!1 &5178916250275697056
 GameObject:
   m_ObjectHideFlags: 0

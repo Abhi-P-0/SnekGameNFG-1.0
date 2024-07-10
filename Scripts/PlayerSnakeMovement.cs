@@ -33,9 +33,10 @@ public class PlayerSnakeMovement : MonoBehaviour
     [Header("Player Attacks and Abilities Prefabs")]
     [SerializeField] private MonoScript attackPrefabs;
     [SerializeField] private MonoScript abilitiesPrefabs;
+    [SerializeField] private LayerMask abilityHitLayer;
     
     private float dis;
-    private float scaleThreshold = 100f, newBodyThreshold = 40f;
+    private readonly int scaleThreshold = 100, newBodyThreshold = 40;
 
     private Transform currBodyPart;
     private Transform prevBodyPart;
@@ -55,7 +56,7 @@ public class PlayerSnakeMovement : MonoBehaviour
 
         head.SetParent(transform);
 
-        // Add linerenderer script, player attack and ability script --------------- Not implemented ------------------------------
+        // Add linerenderer script, player attack and ability script --------------- Not implemented (D0 later) ------------------------------
 
         bodyParts.Add(head);
 
@@ -110,6 +111,49 @@ public class PlayerSnakeMovement : MonoBehaviour
         }
 
         if (Input.GetKeyUp(KeyCode.B)) balanceSnakeState = !balanceSnakeState;
+
+        //if (Input.GetKeyUp(KeyCode.R)) {
+        //    var sneksAround = Physics.OverlapSphere(bodyParts[0].position, 25f);
+
+        //    List<Collider> filteredAround = new();
+
+        //    // check every thing around if it has AI tag which means an AI snake is close to the player
+        //    foreach (Collider c in sneksAround) {
+        //        if (c.gameObject.CompareTag("AI")) {
+        //            filteredAround.Add(c);
+        //        }
+        //    }
+
+        //    // filter each head/bodypart into the parent's unique ID since all individual snake part is nested in an overarching parent object
+        //    if (filteredAround.Count > 0) {
+        //        List<int> uniqueAIs = new();
+        //        List<GameObject> uniqueAIObjects = new();
+
+        //        foreach(Collider c in filteredAround) {
+        //            if (!uniqueAIs.Contains(c.gameObject.transform.parent.GetInstanceID())) {
+
+        //                uniqueAIs.Add(c.gameObject.transform.parent.GetInstanceID());
+
+        //                uniqueAIObjects.Add(c.gameObject.transform.parent.gameObject);
+
+        //            }
+        //        }
+                
+        //        // now drain the mass of any snake around
+        //        foreach (GameObject c in uniqueAIObjects) {
+        //            NewAISnek tempSnekScript = c.GetComponent<NewAISnek>();
+
+        //            tempSnekScript.DecreaseMass(5);
+
+        //            IncreaseMass(5);
+        //        }
+
+        //    }
+
+        //    filteredAround.Clear();
+
+            
+        //}
                 
     }
 
@@ -204,7 +248,7 @@ public class PlayerSnakeMovement : MonoBehaviour
         bodyParts[0].transform.transform.rotation = Quaternion.Euler(currentEulerAngles);
     }
 
-    
+
 
     public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
@@ -215,7 +259,7 @@ public class PlayerSnakeMovement : MonoBehaviour
         }
 
         if (((MASS / 10) * 10) % scaleThreshold == 0) {
-            bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f);
+            bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f); // increases head scale, Move() will auto update the other body parts to the same scale
 
             //minimumDistanceBetweenParts += 0.17f;
             minimumDistanceBetweenParts += bodyParts[1].localScale.z / 4;
@@ -223,6 +267,69 @@ public class PlayerSnakeMovement : MonoBehaviour
         }
 
     }
+
+    //public void IncreaseMass(int increaseAmount) {
+    //    int previousMass = MASS;
+    //    //MASS = Mathf.Min(MASS + increaseAmount, maxMass); // Assuming you define a maxMass
+    //    MASS += increaseAmount;
+
+    //    // Check if we've crossed a threshold for adding a body part
+    //    int previousBodyParts = previousMass / newBodyThreshold;
+    //    int currentBodyParts = MASS / newBodyThreshold;
+
+    //    if (currentBodyParts > previousBodyParts) {
+    //        for (int i = 0; i < currentBodyParts - previousBodyParts; i++) {
+    //            InitBodyPart();
+    //        }
+    //    }
+
+    //    // Check if we've crossed a threshold for scale increase
+    //    int previousScaleLevel = previousMass / scaleThreshold;
+    //    int currentScaleLevel = MASS / scaleThreshold;
+
+    //    if (currentScaleLevel > previousScaleLevel) {
+    //        float scaleIncrease = 0.1f * (currentScaleLevel - previousScaleLevel);
+    //        Vector3 newScale = bodyParts[0].localScale + new Vector3(scaleIncrease, scaleIncrease, scaleIncrease);
+
+    //        // Limit the maximum scale
+    //        float maxScale = 5f; // Adjust this value as needed
+    //        bodyParts[0].localScale = new Vector3(
+    //            Mathf.Min(newScale.x, maxScale),
+    //            Mathf.Min(newScale.y, maxScale),
+    //            Mathf.Min(newScale.z, maxScale)
+    //        );
+
+    //        minimumDistanceBetweenParts += bodyParts[1].localScale.z / 4 * (currentScaleLevel - previousScaleLevel);
+
+    //    }
+
+    //}
+
+    //public void DecreaseMass(int decreaseAmount) {
+    //    MASS = Mathf.Max(0, MASS - decreaseAmount); // Prevent negative mass
+
+    //    // Check if we've crossed a threshold for body part removal
+    //    if (MASS / newBodyThreshold < bodyParts.Count - 1) { // Keep at least one body part
+    //        for (int i = bodyParts.Count - 1; i > 0; i--) { // Start from end, don't deactivate head
+    //            if (bodyParts[i].gameObject.activeSelf) {
+    //                bodyParts[i].gameObject.SetActive(false);
+    //                break;
+    //            }
+    //        }
+    //    }
+
+    //    // Check if we've crossed a threshold for scale reduction
+    //    if (MASS / scaleThreshold < bodyParts[0].localScale.x * 10) { // Assuming initial scale is 1
+    //        Vector3 newScale = bodyParts[0].localScale - new Vector3(0.1f, 0.1f, 0.1f);
+    //        bodyParts[0].localScale = new Vector3(
+    //            Mathf.Max(0.1f, newScale.x),
+    //            Mathf.Max(0.1f, newScale.y),
+    //            Mathf.Max(0.1f, newScale.z)
+    //        );
+
+    //        minimumDistanceBetweenParts = Mathf.Max(0.1f, minimumDistanceBetweenParts - bodyParts[1].localScale.z / 4);
+    //    }
+    //}
 
     public void DecreaseMass(int decreaseAmount) {
         MASS -= decreaseAmount;
@@ -246,6 +353,14 @@ public class PlayerSnakeMovement : MonoBehaviour
             minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
 
         }
+
+        if (MASS <= 0) {
+            GameOver();
+        }
+
+    }
+
+    public void GameOver() {
 
     }
 

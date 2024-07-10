@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2161842055593162909}
   - component: {fileID: -8223336562232433438}
   - component: {fileID: -5876157719017783046}
+  - component: {fileID: 7367550114433242672}
   m_Layer: 0
   m_Name: Head 2
   m_TagString: Untagged
@@ -171,7 +172,20 @@ MonoBehaviour:
   attackPrefab: {fileID: 4411502277591148928, guid: ed4faf06871c0294685747e7a8c2e975,
     type: 3}
   currAttack: {fileID: 0}
-  massCost: 0
+  massCost: 5
+--- !u!114 &7367550114433242672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505619207748142117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f5a45f6990df3e4db1bf30c44c21b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCoolDownTimer: 5
 --- !u!1 &5980795829293525317
 GameObject:
   m_ObjectHideFlags: 0
