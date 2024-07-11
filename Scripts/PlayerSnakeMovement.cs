@@ -354,7 +354,7 @@ public class PlayerSnakeMovement : MonoBehaviour
 
         }
 
-        if (MASS <= 0) {
+        if (MASS < 0) {
             GameOver();
         }
 

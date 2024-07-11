@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class LaserAttackScript : MonoBehaviour {
+
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private GameObject currAttack;

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MassDrainAbility : MonoBehaviour
 {
+    [SerializeField] private int massCost;
     [SerializeField] private int maxCoolDownTimer;
 
     private PlayerSnakeMovement playerSnakeMovement;
@@ -36,10 +37,10 @@ public class MassDrainAbility : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.R) && timePassed <= 0) { // only allow player to shoot if the cooldown timer is reached
+        if (Input.GetKeyUp(KeyCode.R) && timePassed <= 0 && playerSnakeMovement.GetMass() >= massCost) { // only allow player to shoot if the cooldown timer is reached
             timePassed = maxCoolDownTimer;
 
-            var sneksAround = Physics.OverlapSphere(transform.position, 25f);
+            var sneksAround = Physics.OverlapSphere(transform.position, 15f);
 
             
 

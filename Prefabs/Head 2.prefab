@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a45f6990df3e4db1bf30c44c21b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  massCost: 10
   maxCoolDownTimer: 5
 --- !u!1 &5980795829293525317
 GameObject:
