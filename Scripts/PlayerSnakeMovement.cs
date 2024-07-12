@@ -44,6 +44,8 @@ public class PlayerSnakeMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MASS = 0;
+
         var temp = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<TMP_Text>();
 
         massText = temp;
@@ -79,6 +81,10 @@ public class PlayerSnakeMovement : MonoBehaviour
     {
         massText.SetText("MASS: " + MASS.ToString());
         heightText.SetText("Y: " + Mathf.Round(bodyParts[0].position.y * 10f) * 0.1f);
+
+        if (bodyParts[0].position.y < 0) {
+            DecreaseMass(1);
+        }
 
         Move();
 
@@ -253,12 +259,12 @@ public class PlayerSnakeMovement : MonoBehaviour
     public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
 
-        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
+        if (((MASS / 10) * 10) % newBodyThreshold == 0 && MASS > 10) {
             InitBodyPart();
 
         }
 
-        if (((MASS / 10) * 10) % scaleThreshold == 0) {
+        if (((MASS / 10) * 10) % scaleThreshold == 0 && MASS > 10) {
             bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f); // increases head scale, Move() will auto update the other body parts to the same scale
 
             //minimumDistanceBetweenParts += 0.17f;
@@ -334,35 +340,68 @@ public class PlayerSnakeMovement : MonoBehaviour
     public void DecreaseMass(int decreaseAmount) {
         MASS -= decreaseAmount;
 
-        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
+        // Ensure MASS is non-negative to avoid unexpected behavior
+        if (MASS < 0) {
+            MASS = 0;
+            gameObject.SetActive(false);
+            return;
+        }
+
+        // Use Mathf.Floor to handle the nearest lower multiple of 10 if needed
+        int truncatedMass = Mathf.FloorToInt(MASS / 10f) * 10;
+
+        if (truncatedMass % newBodyThreshold == 0 && truncatedMass > 10) {
             //bodyParts[bodyParts.Count - 1].transform.gameObject.SetActive(false);
             for (int i = bodyParts.Count - 1; i >= 0; i--) {
                 if (bodyParts[i].gameObject.activeSelf) {
                     bodyParts[i].gameObject.SetActive(false);
-
                     break;
                 }
             }
-
         }
 
-        if (((MASS / 10) * 10) % scaleThreshold == 0) {
-            bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
-
-            //minimumDistanceBetweenParts += 0.17f;
-            minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
-
+        if (truncatedMass % scaleThreshold == 0 && truncatedMass > 10) {
+            // Ensure there are enough body parts to scale and adjust
+            if (bodyParts.Count > 1) {
+                bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+                //minimumDistanceBetweenParts += 0.17f;
+                minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
+            }
         }
-
-        if (MASS < 0) {
-            GameOver();
-        }
-
     }
 
-    public void GameOver() {
 
-    }
+    //public void DecreaseMass(int decreaseAmount) {
+    //    MASS -= decreaseAmount;
+
+    //    if (MASS < 0) {
+    //        gameObject.SetActive(false);
+
+    //    }
+
+    //    if (((MASS / 10) * 10) % newBodyThreshold == 0 && MASS > 10) {
+    //        //bodyParts[bodyParts.Count - 1].transform.gameObject.SetActive(false);
+    //        for (int i = bodyParts.Count - 1; i >= 0; i--) {
+    //            if (bodyParts[i].gameObject.activeSelf) {
+    //                bodyParts[i].gameObject.SetActive(false);
+
+    //                break;
+    //            }
+    //        }
+
+    //    }
+
+    //    if (((MASS / 10) * 10) % scaleThreshold == 0 && MASS > 10) {
+    //        bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+
+    //        //minimumDistanceBetweenParts += 0.17f;
+    //        minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
+
+    //    }
+
+
+
+    //}
 
     public int GetMass() { return MASS; }
 
