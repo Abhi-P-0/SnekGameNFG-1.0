@@ -34,7 +34,10 @@ public class LaserAttackScript : MonoBehaviour {
 
                 currAttack.transform.forward = transform.forward;
 
-                playerSnakeMovement.DecreaseMass(massCost);
+                //playerSnakeMovement.DecreaseMass(massCost);
+                for (int i = 0; i < massCost; i++) {
+                    playerSnakeMovement.DecreaseMass(1);
+                }
             }
 
         }

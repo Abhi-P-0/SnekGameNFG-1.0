@@ -57,7 +57,7 @@ public class MassSpawner : MonoBehaviour
     private Vector3 GetRandomPosition() {
         return new Vector3(
             Random.Range(-spawnRadius, spawnRadius),
-            Random.Range(-2, -25),
+            Random.Range(25, -25),
             Random.Range(-spawnRadius, spawnRadius)
         );
 

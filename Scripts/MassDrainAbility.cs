@@ -64,9 +64,15 @@ public class MassDrainAbility : MonoBehaviour
                         //uniqueAIObjects.Add(c.gameObject.transform.parent.gameObject);
                         NewAISnek tempSnekScript = c.gameObject.transform.parent.gameObject.GetComponent<NewAISnek>();
 
-                        tempSnekScript.DecreaseMass(5);
+                        //tempSnekScript.DecreaseMass(5);
+                        for (int i = 0; i < 5;  i++) {
+                            tempSnekScript.DecreaseMass(1);
+                        }
 
-                        playerSnakeMovement.IncreaseMass(5);
+                        //playerSnakeMovement.IncreaseMass(5);
+                        for (int i = 0;i < 5; i++) {
+                            playerSnakeMovement.IncreaseMass(1);
+                        }
 
                     }
                 }

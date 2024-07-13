@@ -52,7 +52,10 @@ public class MassBehaviour : MonoBehaviour
 
             PlayerSnakeMovement betterSnakeMovement = other.GetComponentInParent<PlayerSnakeMovement>();
 
-            betterSnakeMovement.IncreaseMass(massValue);
+            //betterSnakeMovement.IncreaseMass(massValue);
+            for (int i = 0; i < massValue; i++) {
+                betterSnakeMovement.IncreaseMass(1);
+            }
 
             gameObject.SetActive(false);
         }
@@ -61,7 +64,10 @@ public class MassBehaviour : MonoBehaviour
 
             NewAISnek newAISnek = other.GetComponentInParent<NewAISnek>();
 
-            newAISnek.IncreaseMass(massValue);
+            //newAISnek.IncreaseMass(massValue);
+            for (int i = 0; i < massValue; i++) {
+                newAISnek.IncreaseMass(1);
+            }
 
             gameObject.SetActive(false);
         }

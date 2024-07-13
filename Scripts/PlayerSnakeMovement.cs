@@ -6,6 +6,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using System.Linq;
 
 public class PlayerSnakeMovement : MonoBehaviour
 {
@@ -254,17 +255,22 @@ public class PlayerSnakeMovement : MonoBehaviour
         bodyParts[0].transform.transform.rotation = Quaternion.Euler(currentEulerAngles);
     }
 
-
+    // can just fill array/list at run time, but for testing setup using this
+    int[] bodyThresholdArr = { 40, 80, 120,160,200,240,280,320,360,400,440,480,520,560,600,640,680,720,760,800,840,880,920,960,1000,1040,1080,1120,1160,1200,1240,1280,1320,1360,1400,1440,1480,1520,1560,1600,1640,1680,1720,1760,1800,1840,1880,1920,1960 };
+    int[] scaleThresholdArr = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4400, 4500, 4600, 4700, 4800, 4900 };
 
     public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
+        // mass will only increase by 1, (checks included prior to this function call)
 
-        if (((MASS / 10) * 10) % newBodyThreshold == 0 && MASS > 10) {
+        //if (((MASS / 10) * 10) % newBodyThreshold == 0 && MASS > 10) {
+        if (bodyThresholdArr.Contains(MASS)) {
             InitBodyPart();
 
         }
 
-        if (((MASS / 10) * 10) % scaleThreshold == 0 && MASS > 10) {
+        //if (((MASS / 10) * 10) % scaleThreshold == 0 && MASS > 10) {
+        if (scaleThresholdArr.Contains(MASS)) { 
             bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f); // increases head scale, Move() will auto update the other body parts to the same scale
 
             //minimumDistanceBetweenParts += 0.17f;
@@ -337,71 +343,75 @@ public class PlayerSnakeMovement : MonoBehaviour
     //    }
     //}
 
-    public void DecreaseMass(int decreaseAmount) {
-        MASS -= decreaseAmount;
-
-        // Ensure MASS is non-negative to avoid unexpected behavior
-        if (MASS < 0) {
-            MASS = 0;
-            gameObject.SetActive(false);
-            return;
-        }
-
-        // Use Mathf.Floor to handle the nearest lower multiple of 10 if needed
-        int truncatedMass = Mathf.FloorToInt(MASS / 10f) * 10;
-
-        if (truncatedMass % newBodyThreshold == 0 && truncatedMass > 10) {
-            //bodyParts[bodyParts.Count - 1].transform.gameObject.SetActive(false);
-            for (int i = bodyParts.Count - 1; i >= 0; i--) {
-                if (bodyParts[i].gameObject.activeSelf) {
-                    bodyParts[i].gameObject.SetActive(false);
-                    break;
-                }
-            }
-        }
-
-        if (truncatedMass % scaleThreshold == 0 && truncatedMass > 10) {
-            // Ensure there are enough body parts to scale and adjust
-            if (bodyParts.Count > 1) {
-                bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
-                //minimumDistanceBetweenParts += 0.17f;
-                minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
-            }
-        }
-    }
-
-
     //public void DecreaseMass(int decreaseAmount) {
     //    MASS -= decreaseAmount;
+    //    // mass will only decrease by 1, (checks included prior to this functions run)
 
+    //    // Ensure MASS is non-negative to avoid unexpected behavior
     //    if (MASS < 0) {
+    //        MASS = 0;
     //        gameObject.SetActive(false);
-
+    //        return;
     //    }
 
-    //    if (((MASS / 10) * 10) % newBodyThreshold == 0 && MASS > 10) {
+    //    // Use Mathf.Floor to handle the nearest lower multiple of 10 if needed
+    //    int truncatedMass = Mathf.FloorToInt(MASS / 10f) * 10;
+
+    //    if (truncatedMass % newBodyThreshold == 0 && truncatedMass > 10) {
     //        //bodyParts[bodyParts.Count - 1].transform.gameObject.SetActive(false);
     //        for (int i = bodyParts.Count - 1; i >= 0; i--) {
     //            if (bodyParts[i].gameObject.activeSelf) {
     //                bodyParts[i].gameObject.SetActive(false);
-
     //                break;
     //            }
     //        }
-
     //    }
 
-    //    if (((MASS / 10) * 10) % scaleThreshold == 0 && MASS > 10) {
-    //        bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
-
-    //        //minimumDistanceBetweenParts += 0.17f;
-    //        minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
-
+    //    if (truncatedMass % scaleThreshold == 0 && truncatedMass > 10) {
+    //        // Ensure there are enough body parts to scale and adjust
+    //        if (bodyParts.Count > 1) {
+    //            bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+    //            //minimumDistanceBetweenParts += 0.17f;
+    //            minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
+    //        }
     //    }
-
-
-
     //}
+
+
+    public void DecreaseMass(int decreaseAmount) {
+        MASS -= decreaseAmount;
+        // mass will only decrease by 1, (checks included prior to this function call)
+
+        if (MASS < 0) {
+            gameObject.SetActive(false);
+
+        }
+
+        //if (((MASS / 10) * 10) % newBodyThreshold == 0 && MASS > 10) {
+        if (bodyThresholdArr.Contains(MASS)) { 
+            //bodyParts[bodyParts.Count - 1].transform.gameObject.SetActive(false);
+            for (int i = bodyParts.Count - 1; i >= 0; i--) {
+                if (bodyParts[i].gameObject.activeSelf) {
+                    bodyParts[i].gameObject.SetActive(false);
+
+                    break;
+                }
+            }
+
+        }
+
+        //if (((MASS / 10) * 10) % scaleThreshold == 0 && MASS > 10) {
+        if (scaleThresholdArr.Contains(MASS)) {
+            bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+
+            //minimumDistanceBetweenParts += 0.17f;
+            minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
+
+        }
+
+
+
+    }
 
     public int GetMass() { return MASS; }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NewAISnek : MonoBehaviour
@@ -225,15 +226,21 @@ public class NewAISnek : MonoBehaviour
 
     }
 
+    int[] bodyThresholdArr = { 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600, 640, 680, 720, 760, 800, 840, 880, 920, 960, 1000, 1040, 1080, 1120, 1160, 1200, 1240, 1280, 1320, 1360, 1400, 1440, 1480, 1520, 1560, 1600, 1640, 1680, 1720, 1760, 1800, 1840, 1880, 1920, 1960 };
+    int[] scaleThresholdArr = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000, 4100, 4200, 4300, 4400, 4500, 4600, 4700, 4800, 4900 };
+
+
     public void IncreaseMass(int increaseAmount) {
         MASS += increaseAmount;
 
-        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
+        //if (((MASS / 10) * 10) % newBodyThreshold == 0) {
+        if (bodyThresholdArr.Contains(MASS)) { 
             InitBodyPart();
 
         }
 
-        if (((MASS / 10) * 10) % scaleThreshold == 0) {
+        //if (((MASS / 10) * 10) % scaleThreshold == 0) {
+        if (scaleThresholdArr.Contains(MASS)) {
             bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f);
 
             minimumDistanceBetweenParts += bodyParts[1].localScale.z / 4;
@@ -245,7 +252,13 @@ public class NewAISnek : MonoBehaviour
     public void DecreaseMass(int decreaseAmount) {
         MASS -= decreaseAmount;
         
-        if (((MASS / 10) * 10) % newBodyThreshold == 0) {
+        if (MASS <= 0) {
+            this.gameObject.SetActive(false);
+
+        }
+
+        //if (((MASS / 10) * 10) % newBodyThreshold == 0) {
+        if (bodyThresholdArr.Contains(MASS)) {
             // start end of list, first active bodypart should be set to deactive
             for (int i = bodyParts.Count - 1; i >= 0; i--) {
                 if (bodyParts[i].gameObject.activeSelf) {
@@ -257,17 +270,15 @@ public class NewAISnek : MonoBehaviour
 
         }
 
-        if (((MASS / 10) * 10) % scaleThreshold == 0) {
+        //if (((MASS / 10) * 10) % scaleThreshold == 0) {
+        if (scaleThresholdArr.Contains(MASS)) {
             bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
 
             minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
 
         }
 
-        if (MASS <= 0) {
-            this.gameObject.SetActive(false);
 
-        }
                 
     }
 
