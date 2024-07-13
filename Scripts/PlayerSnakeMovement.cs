@@ -190,7 +190,7 @@ public class PlayerSnakeMovement : MonoBehaviour
         Transform snakeHead = bodyParts[0];
 
         // MOVES SNAKE FORWARD (For testing only move forward when pressing space)
-        if (Input.GetKey(KeyCode.Space)) snakeHead.Translate(snakeHead.forward * currSpeed * Time.deltaTime, Space.World);
+        /*if (Input.GetKey(KeyCode.Space)) */snakeHead.Translate(snakeHead.forward * currSpeed * Time.deltaTime, Space.World);
 
         // TURN SNAKE LEFT OR RIGHT 
         snakeHead.Rotate(Vector3.up, Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime);

@@ -3444,7 +3444,7 @@ MonoBehaviour:
   snakeObject: {fileID: 9121087594799102338, guid: d7c07d165c5f024469f5ad9f1c427cc7,
     type: 3}
   listOfAIs: []
-  numAI: 25
+  numAI: 35
 --- !u!114 &1728701359
 MonoBehaviour:
   m_ObjectHideFlags: 0

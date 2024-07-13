@@ -27,6 +27,7 @@ public class NewAISnek : MonoBehaviour
     //[SerializeField] private float checkFoodRadius = 1;
     [SerializeField] private float randomDirection = 5f;
     [SerializeField] private LayerMask aiLayer;
+    //[SerializeField] private string snakeName;
 
     [Header("MASS")]
     [SerializeField] private int MASS = 0;
@@ -50,6 +51,7 @@ public class NewAISnek : MonoBehaviour
 
     private Vector3 targetPosition;
     private float wanderTimer;
+    private Lexic.NameGenerator nameGenerator;
 
     //void Start()
     //{
@@ -75,6 +77,8 @@ public class NewAISnek : MonoBehaviour
     //}
 
     private void OnEnable() {
+        //snakeName = nameGenerator.GetNextRandomName();
+
         Vector3 spawnPoint = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(5, spawnRadius), Random.Range(-spawnRadius, spawnRadius));
 
         headPrefab = headPrefabs[Random.Range(0, headPrefabs.Count)]; // randomly selects a head prefab from the available options
@@ -268,6 +272,8 @@ public class NewAISnek : MonoBehaviour
     }
 
     public int GetMass() { return MASS; }
+
+    //public string GetSnakeName() { return snakeName; }
 
     private void LevelSnake() {
         // Gradually level the z rotation back to 0
