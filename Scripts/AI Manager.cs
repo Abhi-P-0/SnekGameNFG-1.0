@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AIManager : MonoBehaviour
@@ -38,7 +39,28 @@ public class AIManager : MonoBehaviour
 
             }
         }
+
+        //listOfAIs = listOfAIs.OrderByDescending(ch => ch.GetComponent<NewAISnek>().GetMass()).ToList();
     }
+
+    public int GetMassOfAI(int index) {
+        return listOfAIs[index].GetComponent<NewAISnek>().GetMass();
+
+    }
+
+    public List<int> GetAllMassSorted() {
+        List<int> temp = new();
+
+        foreach (var snek in listOfAIs.OrderByDescending(snek => snek.GetComponent<NewAISnek>().GetMass())) {
+            temp.Add(snek.GetComponent<NewAISnek>().GetMass());
+
+        }
+
+        return temp;
+
+    }
+
+    public List<GameObject> GetSnakes() { return listOfAIs; }
 
     private void EnableSnek() {
 
