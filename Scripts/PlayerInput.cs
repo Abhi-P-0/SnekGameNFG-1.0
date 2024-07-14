@@ -24,14 +24,59 @@ public partial class @NewPlayerInput: IInputActionCollection2, IDisposable
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Player"",
-            ""id"": ""a78cbfb7-6220-4a77-98e7-84d974cd2b32"",
+            ""name"": ""PlayerTouch"",
+            ""id"": ""1c6b296e-c381-4106-bdf8-c8a5fde95882"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""23a74f54-ec97-474a-840c-42d084c52e19"",
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""f1305f11-cadc-41a0-822a-67c31af586f4"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""c3221430-d117-4327-996f-d7f9d07e17e0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Speed"",
+                    ""type"": ""Button"",
+                    ""id"": ""918ebce2-af77-4efd-bf92-a4bc86b754c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""a0ab5ee1-8447-4bf2-bc4b-73fd61f13337"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a33d1c2-cd9a-4827-9c80-d333c538168d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Line"",
+                    ""type"": ""Button"",
+                    ""id"": ""8238c80f-0c60-4455-9df1-adb4781ccbf4"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -39,68 +84,139 @@ public partial class @NewPlayerInput: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""50f92b38-7a5c-4c0e-9c80-e54bf150f778"",
+                    ""name"": """",
+                    ""id"": ""db1c0747-a1c7-461a-956c-7e6ca9afb955"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""0753b114-a21c-4125-a818-92622ec8b74f"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""5ce72600-8ac3-49da-a68a-23aafc7dcf37"",
+                    ""id"": ""6b1f4dc7-3b8f-48a3-8887-40ea81a9c962"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""652e7b6b-b48f-4e6e-bbca-4e7544b7c7be"",
+                    ""id"": ""8226dd9c-6a25-4fc7-8868-0cb5dc241bed"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""5357da3c-242d-4f32-ada1-82e9b8adec79"",
+                    ""id"": ""3dc3f638-ad74-407c-bc7d-105cc36c6587"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""26c164eb-92fd-46e3-83fe-47943d947284"",
+                    ""id"": ""6975ef44-6d17-43ac-8fdf-79b69438dfdf"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""928cfa1a-24bb-4b05-94a6-8e69452f94fc"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a9071e4-168c-45cb-b047-44d8ca2281fb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Speed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef550155-8434-4f3f-9432-2ffb779b4f09"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dfe1975e-be6e-4e79-af2b-333b12a2023a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ec00160-bedb-425e-8c8a-3ca5dbb1e5b8"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Line"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        // PlayerTouch
+        m_PlayerTouch = asset.FindActionMap("PlayerTouch", throwIfNotFound: true);
+        m_PlayerTouch_Move = m_PlayerTouch.FindAction("Move", throwIfNotFound: true);
+        m_PlayerTouch_Look = m_PlayerTouch.FindAction("Look", throwIfNotFound: true);
+        m_PlayerTouch_Speed = m_PlayerTouch.FindAction("Speed", throwIfNotFound: true);
+        m_PlayerTouch_Attack = m_PlayerTouch.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerTouch_Ability = m_PlayerTouch.FindAction("Ability", throwIfNotFound: true);
+        m_PlayerTouch_Line = m_PlayerTouch.FindAction("Line", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -159,53 +275,98 @@ public partial class @NewPlayerInput: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Movement;
-    public struct PlayerActions
+    // PlayerTouch
+    private readonly InputActionMap m_PlayerTouch;
+    private List<IPlayerTouchActions> m_PlayerTouchActionsCallbackInterfaces = new List<IPlayerTouchActions>();
+    private readonly InputAction m_PlayerTouch_Move;
+    private readonly InputAction m_PlayerTouch_Look;
+    private readonly InputAction m_PlayerTouch_Speed;
+    private readonly InputAction m_PlayerTouch_Attack;
+    private readonly InputAction m_PlayerTouch_Ability;
+    private readonly InputAction m_PlayerTouch_Line;
+    public struct PlayerTouchActions
     {
         private @NewPlayerInput m_Wrapper;
-        public PlayerActions(@NewPlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public PlayerTouchActions(@NewPlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_PlayerTouch_Move;
+        public InputAction @Look => m_Wrapper.m_PlayerTouch_Look;
+        public InputAction @Speed => m_Wrapper.m_PlayerTouch_Speed;
+        public InputAction @Attack => m_Wrapper.m_PlayerTouch_Attack;
+        public InputAction @Ability => m_Wrapper.m_PlayerTouch_Ability;
+        public InputAction @Line => m_Wrapper.m_PlayerTouch_Line;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerTouch; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerActions instance)
+        public static implicit operator InputActionMap(PlayerTouchActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayerTouchActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
+            if (instance == null || m_Wrapper.m_PlayerTouchActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerTouchActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Speed.started += instance.OnSpeed;
+            @Speed.performed += instance.OnSpeed;
+            @Speed.canceled += instance.OnSpeed;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @Ability.started += instance.OnAbility;
+            @Ability.performed += instance.OnAbility;
+            @Ability.canceled += instance.OnAbility;
+            @Line.started += instance.OnLine;
+            @Line.performed += instance.OnLine;
+            @Line.canceled += instance.OnLine;
         }
 
-        private void UnregisterCallbacks(IPlayerActions instance)
+        private void UnregisterCallbacks(IPlayerTouchActions instance)
         {
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Speed.started -= instance.OnSpeed;
+            @Speed.performed -= instance.OnSpeed;
+            @Speed.canceled -= instance.OnSpeed;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @Ability.started -= instance.OnAbility;
+            @Ability.performed -= instance.OnAbility;
+            @Ability.canceled -= instance.OnAbility;
+            @Line.started -= instance.OnLine;
+            @Line.performed -= instance.OnLine;
+            @Line.canceled -= instance.OnLine;
         }
 
-        public void RemoveCallbacks(IPlayerActions instance)
+        public void RemoveCallbacks(IPlayerTouchActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_PlayerTouchActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IPlayerActions instance)
+        public void SetCallbacks(IPlayerTouchActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_PlayerTouchActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_PlayerTouchActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public PlayerActions @Player => new PlayerActions(this);
-    public interface IPlayerActions
+    public PlayerTouchActions @PlayerTouch => new PlayerTouchActions(this);
+    public interface IPlayerTouchActions
     {
-        void OnMovement(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnSpeed(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnAbility(InputAction.CallbackContext context);
+        void OnLine(InputAction.CallbackContext context);
     }
 }

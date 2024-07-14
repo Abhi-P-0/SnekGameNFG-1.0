@@ -35,15 +35,15 @@ public class ServerPlayerMovement : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 moveInput = playerInput.Player.Movement.ReadValue<Vector2>();
+        //Vector2 moveInput = playerInput.Player.Movement.ReadValue<Vector2>();
 
-        if (IsServer && IsLocalPlayer) {
-            Move(moveInput);
+        //if (IsServer && IsLocalPlayer) {
+        //    Move(moveInput);
 
-        } else if (IsClient && IsLocalPlayer) {
-            MoveServerRPC(moveInput);
+        //} else if (IsClient && IsLocalPlayer) {
+        //    MoveServerRPC(moveInput);
 
-        }
+        //}
 
     }
 

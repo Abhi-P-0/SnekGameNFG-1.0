@@ -15,8 +15,13 @@ public class LaserAttackScript : MonoBehaviour {
     private float maxLifeTimer;
     private float currLifeTimer;
 
+    private NewPlayerInput newPlayerInput;
+
     // Start is called before the first frame update
     void Start() {
+        newPlayerInput = new NewPlayerInput();
+        newPlayerInput.Enable();
+
         playerSnakeMovement = GetComponentInParent<PlayerSnakeMovement>();
 
         timerTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<TMP_Text>();
@@ -26,7 +31,8 @@ public class LaserAttackScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetMouseButtonUp(0) && currAttack == null) {
+        //if (Input.GetMouseButtonUp(0) && currAttack == null) {
+        if (newPlayerInput.PlayerTouch.Attack.triggered && currAttack == null) {
             if (playerSnakeMovement.GetMass() >= massCost) {
                 Vector3 spawnPosition = transform.position + transform.forward;
 
@@ -41,7 +47,7 @@ public class LaserAttackScript : MonoBehaviour {
             }
 
         }
-        
+
         if (currAttack != null) {
             currLifeTimer -= Time.deltaTime;
 

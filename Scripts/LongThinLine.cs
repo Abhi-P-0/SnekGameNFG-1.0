@@ -12,7 +12,12 @@ public class LongThinLine : MonoBehaviour {
     private MaterialPropertyBlock propertyBlock;
     private int layerMask;
 
+    private NewPlayerInput newPlayerInput;
+
     void Start() {
+        newPlayerInput = new NewPlayerInput();
+        newPlayerInput.Enable();
+
         layerMask = hitLayers.value & ~(1 << LayerMask.NameToLayer("Ignore Raycast"));
 
         lineRenderer = GetComponent<LineRenderer>();
@@ -26,6 +31,10 @@ public class LongThinLine : MonoBehaviour {
 
         // Initially disable the line renderer
         lineRenderer.enabled = false;
+    }
+
+    private void OnDisable() {
+        newPlayerInput?.Disable();
     }
 
     void SetupLineRenderer() {
@@ -45,7 +54,8 @@ public class LongThinLine : MonoBehaviour {
 
     void Update() {
         // Check if right mouse button is being held down
-        if (Input.GetMouseButton(1))  // 0 is left, 1 is right, 2 is middle
+        //if (Input.GetMouseButton(1))  // 0 is left, 1 is right, 2 is middle
+        if (newPlayerInput.PlayerTouch.Line.IsPressed())
         {
             lineRenderer.enabled = true;
             UpdateLinePosition();

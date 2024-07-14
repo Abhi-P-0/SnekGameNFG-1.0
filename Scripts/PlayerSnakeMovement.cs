@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class PlayerSnakeMovement : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerSnakeMovement : MonoBehaviour
     [SerializeField] private GameObject headPrefab;
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private List<Transform> bodyParts = new List<Transform>();
-    [SerializeField] private MonoScript lineRendererScript;
+    //[SerializeField] private MonoScript lineRendererScript;
 
     [Header("Player Character Parameters")]
     [SerializeField] private int initialBodySize = 5;
@@ -32,19 +33,26 @@ public class PlayerSnakeMovement : MonoBehaviour
     public TMP_Text massText, heightText;
 
     [Header("Player Attacks and Abilities Prefabs")]
-    [SerializeField] private MonoScript attackPrefabs;
-    [SerializeField] private MonoScript abilitiesPrefabs;
+    //[SerializeField] private MonoScript attackPrefabs;
+    //[SerializeField] private MonoScript abilitiesPrefabs;
     [SerializeField] private LayerMask abilityHitLayer;
     
     private float dis;
-    private readonly int scaleThreshold = 100, newBodyThreshold = 40;
+    //private readonly int scaleThreshold = 100, newBodyThreshold = 40;
 
     private Transform currBodyPart;
     private Transform prevBodyPart;
 
+    //private PlayerInput playerInput;
+    private NewPlayerInput newPlayerInput;
+
     // Start is called before the first frame update
     void Start()
     {
+        newPlayerInput = new NewPlayerInput();
+
+        newPlayerInput.Enable();
+
         MASS = 0;
 
         var temp = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<TMP_Text>();
@@ -52,8 +60,8 @@ public class PlayerSnakeMovement : MonoBehaviour
         massText = temp;
         heightText = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<TMP_Text>();
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
 
         Transform head = (Instantiate(headPrefab, new Vector3(UnityEngine.Random.Range(-10, 10), 1, UnityEngine.Random.Range(-10, 10)), Quaternion.identity)).transform;
 
@@ -77,6 +85,8 @@ public class PlayerSnakeMovement : MonoBehaviour
         }
     }
 
+    
+
     // Update is called once per frame
     void Update()
     {
@@ -89,78 +99,37 @@ public class PlayerSnakeMovement : MonoBehaviour
 
         Move();
 
-        if (Input.GetKeyUp(KeyCode.T)) {
-            AddBody();
-        }
-
-        if (Input.GetKeyUp(KeyCode.F)) {
-            IncreaseMass(5);
-        }
-
-        if (Input.GetKeyUp(KeyCode.C)) {
-            bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f);
-
-            //minimumDistanceBetweenParts += minDistanceIncrement;
-
-            //minDistanceIncrement += minDistanceIncrement * 0.15f;
-            
-            minimumDistanceBetweenParts += bodyParts[1].localScale.z / 4;
-        }
-
-        if (Input.GetKeyUp(KeyCode.Z)) {
-            bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
-
-            //minimumDistanceBetweenParts -= minDistanceIncrement;
-
-            //minDistanceIncrement -= minDistanceIncrement * 0.15f;
-
-            minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
-        }
-
-        if (Input.GetKeyUp(KeyCode.B)) balanceSnakeState = !balanceSnakeState;
-
-        //if (Input.GetKeyUp(KeyCode.R)) {
-        //    var sneksAround = Physics.OverlapSphere(bodyParts[0].position, 25f);
-
-        //    List<Collider> filteredAround = new();
-
-        //    // check every thing around if it has AI tag which means an AI snake is close to the player
-        //    foreach (Collider c in sneksAround) {
-        //        if (c.gameObject.CompareTag("AI")) {
-        //            filteredAround.Add(c);
-        //        }
-        //    }
-
-        //    // filter each head/bodypart into the parent's unique ID since all individual snake part is nested in an overarching parent object
-        //    if (filteredAround.Count > 0) {
-        //        List<int> uniqueAIs = new();
-        //        List<GameObject> uniqueAIObjects = new();
-
-        //        foreach(Collider c in filteredAround) {
-        //            if (!uniqueAIs.Contains(c.gameObject.transform.parent.GetInstanceID())) {
-
-        //                uniqueAIs.Add(c.gameObject.transform.parent.GetInstanceID());
-
-        //                uniqueAIObjects.Add(c.gameObject.transform.parent.gameObject);
-
-        //            }
-        //        }
-                
-        //        // now drain the mass of any snake around
-        //        foreach (GameObject c in uniqueAIObjects) {
-        //            NewAISnek tempSnekScript = c.GetComponent<NewAISnek>();
-
-        //            tempSnekScript.DecreaseMass(5);
-
-        //            IncreaseMass(5);
-        //        }
-
-        //    }
-
-        //    filteredAround.Clear();
-
-            
+        //if (Input.GetKeyUp(KeyCode.T)) {
+        //    AddBody();
         //}
+
+        //if (Input.GetKeyUp(KeyCode.F)) {
+        //    IncreaseMass(5);
+        //}
+
+        //if (Input.GetKeyUp(KeyCode.C)) {
+        //    bodyParts[0].localScale += new Vector3(0.1f, 0.1f, 0.1f);
+
+        //    //minimumDistanceBetweenParts += minDistanceIncrement;
+
+        //    //minDistanceIncrement += minDistanceIncrement * 0.15f;
+            
+        //    minimumDistanceBetweenParts += bodyParts[1].localScale.z / 4;
+        //}
+
+        //if (Input.GetKeyUp(KeyCode.Z)) {
+        //    bodyParts[0].localScale -= new Vector3(0.1f, 0.1f, 0.1f);
+
+        //    //minimumDistanceBetweenParts -= minDistanceIncrement;
+
+        //    //minDistanceIncrement -= minDistanceIncrement * 0.15f;
+
+        //    minimumDistanceBetweenParts -= bodyParts[1].localScale.z / 4;
+        //}
+
+        //if (Input.GetKeyUp(KeyCode.B)) balanceSnakeState = !balanceSnakeState;
+
+        
                 
     }
 
@@ -169,7 +138,9 @@ public class PlayerSnakeMovement : MonoBehaviour
     private void Move() {
         float currSpeed = speed;
 
-        if (Input.GetKey(KeyCode.LeftShift) && MASS > 0) {
+        //Debug.Log(newPlayerInput.PlayerTouch.Jump.triggered);
+        //if (Input.GetKey(KeyCode.LeftShift) && MASS > 0) {
+        if (newPlayerInput.PlayerTouch.Speed.IsPressed() && MASS > 0) { 
             currSpeed *= 2;
 
             //MASS -= 0.02f;
@@ -194,13 +165,16 @@ public class PlayerSnakeMovement : MonoBehaviour
         /*if (Input.GetKey(KeyCode.Space)) */snakeHead.Translate(snakeHead.forward * currSpeed * Time.deltaTime, Space.World);
 
         // TURN SNAKE LEFT OR RIGHT 
-        snakeHead.Rotate(Vector3.up, Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime);
-        snakeHead.Rotate(Vector3.right, Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime);
+        //snakeHead.Rotate(Vector3.up, Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime);
+        //snakeHead.Rotate(Vector3.right, Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime);
+        Vector2 moveInput = newPlayerInput.PlayerTouch.Move.ReadValue<Vector2>();
+        snakeHead.Rotate(Vector3.up, moveInput.x * rotationSpeed * Time.deltaTime);
+        snakeHead.Rotate(Vector3.right, -moveInput.y * rotationSpeed * Time.deltaTime);
 
         // ROTATE SNAKE LEFT OR RIGHT
-        if (Input.GetKey(KeyCode.Q)) snakeHead.Rotate(Vector3.forward);
+        //if (Input.GetKey(KeyCode.Q)) snakeHead.Rotate(Vector3.forward);
 
-        if (Input.GetKey(KeyCode.E)) snakeHead.Rotate(Vector3.forward * -1f);
+        //if (Input.GetKey(KeyCode.E)) snakeHead.Rotate(Vector3.forward * -1f);
 
         if (balanceSnakeState) LevelSnake();
 

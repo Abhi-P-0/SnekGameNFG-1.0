@@ -35,6 +35,8 @@ public class StationaryMassBehaviour : MonoBehaviour
     
 
     private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Attack")) { Debug.Log("Returning"); return; }
+
         if (other.transform.parent.gameObject.name == "Player Snek(Clone)" && other.gameObject.name != "Body(Clone)") {
 
             PlayerSnakeMovement betterSnakeMovement = other.GetComponentInParent<PlayerSnakeMovement>();

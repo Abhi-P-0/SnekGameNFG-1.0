@@ -15,9 +15,14 @@ public class MassDrainAbility : MonoBehaviour
     List<int> uniqueAIs = new();
     List<Collider> filteredAround = new();
 
+    private NewPlayerInput newPlayerInput;
+
     // Start is called before the first frame update
     void Start()
     {
+        newPlayerInput = new NewPlayerInput();
+        newPlayerInput.Enable();
+
         playerSnakeMovement = GetComponentInParent<PlayerSnakeMovement>();
 
         timerTxt = GameObject.Find("Canvas").transform.GetChild(3).GetComponent<TMP_Text>();
@@ -37,7 +42,8 @@ public class MassDrainAbility : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.R) && timePassed <= 0 && playerSnakeMovement.GetMass() >= massCost) { // only allow player to shoot if the cooldown timer is reached
+        //if (Input.GetKeyUp(KeyCode.R) && timePassed <= 0 && playerSnakeMovement.GetMass() >= massCost) { // only allow player to shoot if the cooldown timer is reached
+        if (newPlayerInput.PlayerTouch.Ability.triggered && timePassed <= 0 && playerSnakeMovement.GetMass() >= massCost) {
             timePassed = maxCoolDownTimer;
 
             var sneksAround = Physics.OverlapSphere(transform.position, 15f);

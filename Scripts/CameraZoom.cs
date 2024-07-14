@@ -21,31 +21,31 @@ public class CameraZoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        //float scroll = Input.GetAxis("Mouse ScrollWheel");
                 
-        if (scroll != 0.0f) {
-            //freeLookCam.m_Lens.FieldOfView -= scroll * zoomSpeed;
+        //if (scroll != 0.0f) {
+        //    //freeLookCam.m_Lens.FieldOfView -= scroll * zoomSpeed;
 
-            //freeLookCam.m_Lens.FieldOfView = Mathf.Clamp(freeLookCam.m_Lens.FieldOfView, minFov, maxFov);
+        //    //freeLookCam.m_Lens.FieldOfView = Mathf.Clamp(freeLookCam.m_Lens.FieldOfView, minFov, maxFov);
 
-            freeLookCam.m_Orbits[0].m_Radius -= scroll * zoomSpeed;
-            //freeLookCam.m_Orbits[0].m_Height += scroll * zoomSpeed;
+        //    freeLookCam.m_Orbits[0].m_Radius -= scroll * zoomSpeed;
+        //    //freeLookCam.m_Orbits[0].m_Height += scroll * zoomSpeed;
 
-            freeLookCam.m_Orbits[1].m_Radius -= scroll * zoomSpeed;
-            //freeLookCam.m_Orbits[1].m_Height -= scroll * zoomSpeed;
+        //    freeLookCam.m_Orbits[1].m_Radius -= scroll * zoomSpeed;
+        //    //freeLookCam.m_Orbits[1].m_Height -= scroll * zoomSpeed;
 
-            freeLookCam.m_Orbits[2].m_Radius -= scroll * zoomSpeed;
-            //freeLookCam.m_Orbits[2].m_Height -= scroll * zoomSpeed;
+        //    freeLookCam.m_Orbits[2].m_Radius -= scroll * zoomSpeed;
+        //    //freeLookCam.m_Orbits[2].m_Height -= scroll * zoomSpeed;
 
-            freeLookCam.m_Orbits[0].m_Radius = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
-            //freeLookCam.m_Orbits[0].m_Height = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
+        //    freeLookCam.m_Orbits[0].m_Radius = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
+        //    //freeLookCam.m_Orbits[0].m_Height = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
 
-            freeLookCam.m_Orbits[1].m_Radius = Mathf.Clamp(freeLookCam.m_Orbits[1].m_Radius, minFov, maxFov);
-            //freeLookCam.m_Orbits[1].m_Height = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
+        //    freeLookCam.m_Orbits[1].m_Radius = Mathf.Clamp(freeLookCam.m_Orbits[1].m_Radius, minFov, maxFov);
+        //    //freeLookCam.m_Orbits[1].m_Height = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
 
-            freeLookCam.m_Orbits[2].m_Radius = Mathf.Clamp(freeLookCam.m_Orbits[2].m_Radius, minFov, maxFov);
-            //freeLookCam.m_Orbits[2].m_Height = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
-        }
+        //    freeLookCam.m_Orbits[2].m_Radius = Mathf.Clamp(freeLookCam.m_Orbits[2].m_Radius, minFov, maxFov);
+        //    //freeLookCam.m_Orbits[2].m_Height = Mathf.Clamp(freeLookCam.m_Orbits[0].m_Radius, minFov, maxFov);
+        //}
 
     }
 }

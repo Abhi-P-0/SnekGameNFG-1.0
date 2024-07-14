@@ -34,7 +34,7 @@ public class NewAISnek : MonoBehaviour
     [SerializeField] private int MASS = 0;
 
     private float dis;
-    private float scaleThreshold = 100f, newBodyThreshold = 40f;
+    //private float scaleThreshold = 100f, newBodyThreshold = 40f;
     private float directionChangeTimer;
 
     private float timePassed = 0f;
