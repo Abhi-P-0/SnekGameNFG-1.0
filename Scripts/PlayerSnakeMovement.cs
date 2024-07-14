@@ -14,6 +14,7 @@ public class PlayerSnakeMovement : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private CinemachineFreeLook playerFreeLookCamera;
+    [SerializeField] private CinemachineFreeLook rdPersonCam;
     [SerializeField] private GameObject headPrefab;
     [SerializeField] private GameObject bodyPrefab;
     [SerializeField] private List<Transform> bodyParts = new List<Transform>();
@@ -72,13 +73,20 @@ public class PlayerSnakeMovement : MonoBehaviour
         bodyParts.Add(head);
 
         playerFreeLookCamera = Instantiate(playerFreeLookCamera);
+        rdPersonCam = Instantiate(rdPersonCam);
 
         playerFreeLookCamera.transform.SetParent(transform);
+        rdPersonCam.transform.SetParent(transform);
 
         GameObject followTarget = transform.GetChild(0).GetChild(3).gameObject;
 
         playerFreeLookCamera.Follow = followTarget.transform;
         playerFreeLookCamera.LookAt = followTarget.transform;
+
+        rdPersonCam.Follow = followTarget.transform;
+        rdPersonCam.LookAt = followTarget.transform;
+
+        //rdPersonCam.gameObject.SetActive(false);
 
         for (int i = 0; i < initialBodySize; i++) {
             AddBody();

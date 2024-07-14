@@ -46,12 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFreeLookCamera: {fileID: 396336686089682012, guid: 883951ad0547c5a4e853ebfdb4295b15,
     type: 3}
+  rdPersonCam: {fileID: 396336686089682012, guid: 74e74851e2966864fa1e7b61257cce16,
+    type: 3}
   headPrefab: {fileID: 1988483766589207025, guid: 7246034892d90c243a468a0818efd139,
     type: 3}
   bodyPrefab: {fileID: 2981978852834277892, guid: cbb32b7902d11454c964f97132d4f6e8,
     type: 3}
   bodyParts: []
-  lineRendererScript: {fileID: 0}
   initialBodySize: 5
   minimumDistanceBetweenParts: 1.1
   minDistanceIncrement: 0.15
@@ -62,8 +63,6 @@ MonoBehaviour:
   MASS: 0
   massText: {fileID: 0}
   heightText: {fileID: 0}
-  attackPrefabs: {fileID: 0}
-  abilitiesPrefabs: {fileID: 0}
   abilityHitLayer:
     serializedVersion: 2
     m_Bits: 2048
